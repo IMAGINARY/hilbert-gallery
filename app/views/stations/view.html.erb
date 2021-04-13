@@ -1,0 +1,6 @@
+<% content_for :title, "Station #{@id}" %>
+<h1>Station <%= @id %></h1>
+
+<div class="border-info" data-station="<%= @id %>"></div>
+
+<%= javascript_pack_tag 'stations' %>

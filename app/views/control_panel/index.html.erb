@@ -1,0 +1,14 @@
+<% content_for :title, "Control Panel" %>
+<h1>Control Panel</h1>
+
+<form class="form-inline" data-form="send-message">
+  <input class="form-control mr-sm-2" type="text" name="message" value="">
+  <select class="form-control mr-sm-2" name="stationID">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+  </select>
+  <button class="btn btn-primary" type="submit">Send message</button>
+</form>
+
+<%= javascript_pack_tag 'control-panel' %>

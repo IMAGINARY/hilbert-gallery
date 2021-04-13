@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>HilbertGallery</title>
+    <title><%= yield(:title) %> | Hilbert Gallery</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -11,6 +11,17 @@
   </head>
 
   <body>
-    <%= yield %>
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <% flash.each do |type, msg| %>
+            <div class="alert alert-<%= type === 'alert' ? 'danger' : 'primary' %>" role="alert">
+              <%= msg %>
+            </div>
+          <% end %>
+          <%= yield %>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
