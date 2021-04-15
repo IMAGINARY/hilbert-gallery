@@ -1,14 +1,33 @@
 <% content_for :title, "Control Panel" %>
-<h1>Control Panel</h1>
-
-<form class="form-inline" data-form="send-message">
-  <input class="form-control mr-sm-2" type="text" name="message" value="">
-  <select class="form-control mr-sm-2" name="stationID">
-    <option value="1">1</option>
-    <option value="2">2</option>
-    <option value="3">3</option>
-  </select>
-  <button class="btn btn-primary" type="submit">Send message</button>
-</form>
+<div class="station-stage">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="row">
+          <div class="col text-center">
+            <div class="station station-16-9" data-station="1"></div>
+          </div>
+          <div class="col text-center">
+            <div class="station station-s station-4-3" data-station="2"></div>
+          </div>
+          <div class="col text-center">
+            <div class="station station-m station-16-9" data-station="3"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="image-library mt-5">
+  <div class="container">
+    <div class="row">
+      <% @images.each do |image| %>
+        <div class="col-md-2 col-4 mb-4">
+          <%= image_tag image[:thumbnail], { class: 'img-fluid', "data-image": image_url(image[:filename]) } %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
 
 <%= javascript_pack_tag 'control-panel' %>

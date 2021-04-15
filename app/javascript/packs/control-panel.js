@@ -1,27 +1,39 @@
-$('form[data-form="send-message"]').on('submit', (ev) => {
-  const $form = $(ev.target);
-  const csrfToken = document.querySelector("[name='csrf-token']").content;
-  const stationID = $form.find('[name="stationID"]').val();
-  const message = $form.find('[name="message"]').val();
+let $selectedStation = null;
 
-  fetch(`/stations/${stationID}/update`, {
-    method: 'PATCH',
-    body: JSON.stringify({
-      message
-    }),
-    headers: {
-      "X-CSRF-Token": csrfToken,
-      "Content-Type": "application/json"
-    }
-  })
-    .then(response => response.json())
-    .then((result) => {
-      console.log('Success:', result);
-    })
-    .catch((error) => {
-      console.error('Error:', error);
-    });
-
+$('.station-stage .station').on('click', (ev) => {
   ev.preventDefault();
-  return false;
+
+  if ($selectedStation) {
+    $selectedStation.removeClass('selected');
+  }
+  $selectedStation = $(ev.target);
+  $selectedStation.addClass('selected');
+});
+
+$('.image-library img').on('click', (ev) => {
+  ev.preventDefault();
+
+  if ($selectedStation) {
+    const url = $(ev.target).attr('data-image');
+    const stationID = $selectedStation.attr('data-station');
+    const csrfToken = $("[name='csrf-token']").attr('content');
+
+    fetch(`/stations/${stationID}/update`, {
+      method: 'PATCH',
+      body: JSON.stringify({
+        message: url
+      }),
+      headers: {
+        "X-CSRF-Token": csrfToken,
+        "Content-Type": "application/json"
+      }
+    })
+      .then(response => response.json())
+      .then((result) => {
+        console.log('Success:', result);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  }
 });

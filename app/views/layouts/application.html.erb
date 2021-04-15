@@ -10,7 +10,7 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
+  <body class="<%= controller_name %> <%= "#{controller_name}-#{action_name}" %>">
     <div class="container">
       <div class="row">
         <div class="col">
@@ -19,9 +19,9 @@
               <%= msg %>
             </div>
           <% end %>
-          <%= yield %>
         </div>
       </div>
     </div>
+    <%= yield %>
   </body>
 </html>

@@ -1,3 +1,60 @@
 // Place all the styles related to the ControlPanel controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+
+.station-stage {
+  margin: 1em 0;
+  padding: 2em 0;
+  border-top: 1px solid #999999;
+  border-bottom: 1px solid #999999;
+
+  .station {
+    display: inline-block;
+    border: 3px solid #b5b5b5;
+    width: 50%;
+    height: 0;
+    padding-bottom: 50%;
+    cursor: pointer;
+
+    &.station-s {
+      width: 50% * 0.6;
+      padding-bottom: 50% * 0.6;
+    }
+
+    &.selected {
+      box-shadow: 0 0 10px -1px #fff9bb;
+    }
+  }
+
+  .station-16-9 {
+    width: 100%;
+    padding-bottom: (9 * 100%) / 16;
+
+    &.station-m {
+      width: 100% * 0.8;
+      padding-bottom: (9 * 100%) / 16 * 0.8;
+    }
+
+    &.station-s {
+      width: 100% * 0.6;
+      padding-bottom: (9 * 100%) / 16 * 0.6;
+    }
+  }
+
+  .station-4-3 {
+    width: ((9 * 100%) / 16) / 3 * 4;
+    padding-bottom: (9 * 100%) / 16;
+
+    &.station-s {
+      width: ((9 * 100%) / 16) / 3 * 4 * 0.6;
+      padding-bottom: (9 * 100%) / 16 * 0.6;
+    }
+  }
+}
+
+.image-library {
+  img {
+    border: 1px solid #666;
+    cursor: pointer;
+  }
+}
