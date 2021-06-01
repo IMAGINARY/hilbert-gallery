@@ -15,6 +15,7 @@ $('.image-library img').on('click', (ev) => {
 
   if ($selectedStation) {
     const url = $(ev.target).attr('data-image');
+    const thumbUrl = $(ev.target).attr('src');
     const stationID = $selectedStation.attr('data-station');
     const csrfToken = $("[name='csrf-token']").attr('content');
 
@@ -31,6 +32,7 @@ $('.image-library img').on('click', (ev) => {
       .then(response => response.json())
       .then((result) => {
         console.log('Success:', result);
+        $selectedStation.css('background-image', `url('${thumbUrl}')`);
       })
       .catch((error) => {
         console.error('Error:', error);
