@@ -1,23 +1,66 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  caption: MyText
-  credits: MyText
-  year: 1900
-  city: MyString
-  region: MyString
-  country: MyString
-  notes: MyText
-  submitter_name: MyString
-  submitter_email: MyString
+  caption: Kinderumzug bei der Basler Fasnacht 2017
+  credits: -jkb-
+  year: 2017
+  city: Basel
+  country: CH
+  notes: CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
+  submitter_name: Eric Londaits
+  submitter_email: eric.londaits@imaginary.org
 
 two:
-  caption: MyText
-  credits: MyText
+  caption: Umzug Güdismäntig 2009
+  credits: Hofec
+  year: 2009
+  city: Luzern
+  country: CH
+  notes: CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
+  submitter_name: Eric Londaits
+  submitter_email: eric.londaits@imaginary.org
+
+three:
+  caption: Fasnacht in Basel
+  credits: Max Karmazin
+  year: 2016
+  city: Basel
+  country: CH
+  notes: CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons
+  submitter_name: Eric Londaits
+  submitter_email: eric.londaits@imaginary.org
+
+four:
+  caption: Teilnehmer der Berner Fasnacht 2010
+  credits: Sandstein
+  year: 2010
+  city: Bern
+  country: CH
+  notes: CC BY 3.0 <https://creativecommons.org/licenses/by/3.0>, via Wikimedia Commons
+  submitter_name: Eric Londaits
+  submitter_email: eric.londaits@imaginary.org
+
+five:
+  caption: Reblaus der Reblaus-Zunft Freiburg St. Georgen e. V. (fotografiert in Freiburg i. Br. 2009)
+  credits: Ian Holton
   year: 1900
-  city: MyString
-  region: MyString
-  country: MyString
-  notes: MyText
-  submitter_name: MyString
-  submitter_email: MyString
+  city: Freiburg im Breisgau
+  region: Baden-Württemberg
+  country: DE
+  notes: CC BY 2.0 <https://creativecommons.org/licenses/by/2.0>, via Wikimedia Commons
+  submitter_name: Eric Londaits
+  submitter_email: eric.londaits@imaginary.org
+
+six:
+  caption: Narrenzunft Bad Säckingen
+  credits: Andreas Praefcke
+  year: 2016
+  city: Lindau
+  region: Bayern
+  country: DE
+  notes: |
+    Fotografiert beim Großen Narrentreffen der Vereinigung Schwäbisch-Alemannischer Narrenzünfte (VSAN) in Lindau.
+    Narrensprung am Sonntag, 24. Januar 2016.
+    CC BY 4.0 <https://creativecommons.org/licenses/by/4.0>, via Wikimedia Commons
+  submitter_name: Eric Londaits
+  submitter_email: eric.londaits@imaginary.org
