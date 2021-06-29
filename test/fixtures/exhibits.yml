@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  caption: MyText
+  credits: MyText
+  year: 1900
+  city: MyString
+  region: MyString
+  country: MyString
+  notes: MyText
+  submitter_name: MyString
+  submitter_email: MyString
+
+two:
+  caption: MyText
+  credits: MyText
+  year: 1900
+  city: MyString
+  region: MyString
+  country: MyString
+  notes: MyText
+  submitter_name: MyString
+  submitter_email: MyString
