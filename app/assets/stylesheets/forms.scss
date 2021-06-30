@@ -1,0 +1,17 @@
+label.required {
+  &:after {
+    content: "*";
+    display: inline-block;
+    color: red;
+    margin-left: 0.25em;
+  }
+}
+
+div.field_with_errors {
+  display: inline;
+
+  input, textarea, select {
+    border: 2px solid #f9451c;
+    background-color: #ffe2e2;
+  }
+}

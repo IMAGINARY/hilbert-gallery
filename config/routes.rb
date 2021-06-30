@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   root 'home#index'
-
   get 'home/index'
+
+  resources :exhibits
 
   get 'control_panel', to: 'control_panel#index'
 

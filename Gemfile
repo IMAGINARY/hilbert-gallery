@@ -26,6 +26,10 @@ gem 'redis', '~> 4.0'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
+# Country selector
+# https://github.com/stefanpenner/country_select
+gem 'country_select', '~> 4.0'
+
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 

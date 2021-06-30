@@ -1,0 +1,72 @@
+<div class="row">
+  <div class="col-md-8">
+    <%= form_with model: @exhibit, local: true do |form| %>
+
+      <% if @exhibit.errors.any? %>
+        <div id="error_explanation" class="bg-danger text-white p-3 my-3">
+          <div class="lead">
+            <%= pluralize(@exhibit.errors.count, "error") %> prevented
+            this event from being saved:
+          </div>
+          <ul>
+            <% @exhibit.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="form-group">
+        <%= form.label :caption %><br>
+        <%= form.text_area :caption, class: 'form-control', rows: 3 %>
+      </div>
+
+      <div class="form-group">
+        <%= form.label :credits %><br>
+        <%= form.text_area :credits, class: 'form-control', rows: 3 %>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <%= form.label :year %><br>
+          <%= form.text_field :year, class: 'form-control' %>
+        </div>
+
+        <div class="form-group col-md-6">
+          <%= form.label :country  %><br>
+          <%= form.country_select :country, { include_blank: '', priority_countries: ['AT', 'DE', 'CH'] }, { class: 'form-control' } %>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <%= form.label :city %><br>
+          <%= form.text_field :city, class: 'form-control' %>
+        </div>
+
+        <div class="form-group col-md-6">
+          <%= form.label :region %><br>
+          <%= form.text_field :region, class: 'form-control' %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= form.label :notes %><br>
+        <%= form.text_area :notes, class: 'form-control', rows: 5 %>
+      </div>
+
+      <div class="form-group">
+        <%= form.label 'Submitter name' %><br>
+        <%= form.text_field :submitter_name, class: 'form-control' %>
+      </div>
+
+      <div class="form-group">
+        <%= form.label 'Submitter email' %><br>
+        <%= form.text_field :submitter_email, class: 'form-control' %>
+      </div>
+
+      <%= form.submit nil, { class: 'btn btn-primary'} %>
+
+    <% end %>
+  </div>
+</div>
