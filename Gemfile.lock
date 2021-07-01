@@ -171,6 +171,12 @@ GEM
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
     semantic_range (3.0.0)
+    shoulda (4.0.0)
+      shoulda-context (~> 2.0)
+      shoulda-matchers (~> 4.0)
+    shoulda-context (2.0.0)
+    shoulda-matchers (4.4.1)
+      activesupport (>= 4.2.0)
     sixarm_ruby_unaccent (1.2.0)
     sort_alphabetical (1.1.0)
       unicode_utils (>= 1.2.2)
@@ -182,6 +188,7 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
+    sqlite3 (1.4.2)
     thor (1.1.0)
     tilt (2.0.10)
     turbolinks (5.2.1)
@@ -228,7 +235,10 @@ DEPENDENCIES
   redis (~> 4.0)
   sass-rails (>= 6)
   selenium-webdriver
+  shoulda (~> 4.0)
+  shoulda-matchers (~> 4.0)
   spring
+  sqlite3 (~> 1.4)
   turbolinks (~> 5)
   tzinfo-data
   web-console (>= 4.1.0)

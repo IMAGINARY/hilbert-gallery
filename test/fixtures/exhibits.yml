@@ -14,7 +14,6 @@ two:
   caption: Umzug Güdismäntig 2009
   credits: Hofec
   year: 2009
-  city: Luzern
   country: CH
   notes: CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
   submitter_name: Eric Londaits
@@ -24,8 +23,6 @@ three:
   caption: Fasnacht in Basel
   credits: Max Karmazin
   year: 2016
-  city: Basel
-  country: CH
   notes: CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons
   submitter_name: Eric Londaits
   submitter_email: eric.londaits@imaginary.org
@@ -55,7 +52,6 @@ six:
   caption: Narrenzunft Bad Säckingen
   credits: Andreas Praefcke
   year: 2016
-  city: Lindau
   region: Bayern
   country: DE
   notes: |

@@ -6,7 +6,7 @@ ruby '2.6.3'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '~> 6.1.3', '>= 6.1.3.1'
 # Use sqlite3 as the database for Active Record
-# gem 'sqlite3', '~> 1.4'
+gem 'sqlite3', '~> 1.4'
 gem 'pg', '~> 1.2.3'
 # Use Puma as the app server
 gem 'puma', '~> 5.0'
@@ -55,6 +55,9 @@ group :test do
   gem 'selenium-webdriver'
   # Easy installation and use of web drivers to run system tests with browsers
   gem 'webdrivers'
+  # https://github.com/thoughtbot/shoulda-matchers#minitest
+  gem 'shoulda', '~> 4.0'
+  gem 'shoulda-matchers', '~> 4.0'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
