@@ -7,6 +7,12 @@ class Exhibit < ApplicationRecord
   validates :submitter_name, length: { maximum: 100 }
   validates :submitter_email, length: { maximum: 100 }
 
+  has_one_attached :media_file
+  validates :media_file,
+            attached: { message: 'You must add a media file' },
+            content_type: [:gif, :png, :jpg, :jpeg, :mp4],
+            size: { less_than: 100.megabytes , message: 'must be less than 100MB in size' }
+
   def country_name
     ISO3166::Country[country]
   end

@@ -24,7 +24,8 @@
 
 # Ignore uploaded files in development.
 /storage/*
-!/storage/.keep
+!/storage/production/.keep
+!/storage/development/.keep
 
 /public/assets
 .byebug_history

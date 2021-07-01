@@ -17,6 +17,11 @@
       <% end %>
 
       <div class="form-group">
+        <%= form.label :media_file %><br>
+        <%= form.file_field :media_file %>
+      </div>
+
+      <div class="form-group">
         <%= form.label :caption %><br>
         <%= form.text_area :caption, class: 'form-control', rows: 3 %>
       </div>

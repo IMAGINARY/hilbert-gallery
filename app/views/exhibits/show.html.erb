@@ -1,38 +1,48 @@
 <div class="container">
   <div class="row">
     <div class="col">
-      <h1>Exhibit <%= @exhibit.id %></h1>
       <div class="detailview detailview-exhibits">
-        <ul>
-          <li class="detailview-field">
-            <span class="name">Caption: </span>
-            <span class="value"><%= simple_format(@exhibit.caption) %></span>
-          </li>
-          <li class="detailview-field">
-            <span class="name">Credits: </span>
-            <span class="value"><%= simple_format(@exhibit.credits) %></span>
-          </li>
-          <li class="detailview-field">
-            <span class="name">Year: </span>
-            <span class="value"><%= @exhibit.year %></span>
-          </li>
-          <li class="detailview-field">
-            <span class="name">Location: </span>
-            <span class="value"><%= @exhibit.location %></span>
-          </li>
-          <li class="detailview-field">
-            <span class="name">Notes: </span>
-            <span class="value"><%= simple_format(@exhibit.notes) %></span>
-          </li>
-          <% if @exhibit.submitter_email || @exhibit.submitter_name %>
-            <li class="detailview-field">
-              <span class="name">Submitter: </span>
-              <span class="value"><%= submitter_link(@exhibit) %></span>
-            </li>
-          <% end %>
-        </ul>
+        <h1>Exhibit <%= @exhibit.id %></h1>
+        <div class="row">
+          <div class="col-md-8">
+            <% if (@exhibit.media_file.present?) %>
+              <div>
+                <img class="img-fluid" src="<%= url_for(@exhibit.media_file) %>" />
+              </div>
+            <% end %>
+          </div>
+          <div class="col-md-4">
+            <ul>
+              <li class="detailview-field">
+                <span class="name">Caption: </span>
+                <span class="value"><%= simple_format(@exhibit.caption) %></span>
+              </li>
+              <li class="detailview-field">
+                <span class="name">Credits: </span>
+                <span class="value"><%= simple_format(@exhibit.credits) %></span>
+              </li>
+              <li class="detailview-field">
+                <span class="name">Year: </span>
+                <span class="value"><%= @exhibit.year %></span>
+              </li>
+              <li class="detailview-field">
+                <span class="name">Location: </span>
+                <span class="value"><%= @exhibit.location || '-' %></span>
+              </li>
+              <li class="detailview-field">
+                <span class="name">Notes: </span>
+                <span class="value"><%= simple_format(@exhibit.notes) %></span>
+              </li>
+              <% if @exhibit.submitter_email || @exhibit.submitter_name %>
+                <li class="detailview-field">
+                  <span class="name">Submitter: </span>
+                  <span class="value"><%= submitter_link(@exhibit) %></span>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
       </div>
-
       <div class="mt-4 mb-5">
         <%= link_to 'Edit', edit_exhibit_path(@exhibit), class: 'btn btn-primary' %>
         <%= link_to 'Delete', exhibit_path(@exhibit),

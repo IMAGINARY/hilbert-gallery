@@ -30,6 +30,10 @@ gem 'redis', '~> 4.0'
 # https://github.com/stefanpenner/country_select
 gem 'country_select', '~> 4.0'
 
+# Active Storage Validations
+# https://github.com/igorkasyanchuk/active_storage_validations
+gem 'active_storage_validations'
+
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 
