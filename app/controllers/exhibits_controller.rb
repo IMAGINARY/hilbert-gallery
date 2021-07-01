@@ -39,7 +39,7 @@ class ExhibitsController < ApplicationController
     @exhibit = Exhibit.find(params[:id])
     @exhibit.destroy
 
-    redirect_to root_path
+    redirect_to exhibits_path
   end
 
   private

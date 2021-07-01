@@ -1,5 +1,5 @@
 class Exhibit < ApplicationRecord
-  validates :year, numericality: { only_integer: true, less_than: 10000 }
+  validates :year, numericality: { only_integer: true, less_than: 10000 }, allow_blank: true
   validates :city, length: { maximum: 50 }
   validates :region, length: { maximum: 50 }
   validates :country, length: { is: 2 }, allow_blank: true
