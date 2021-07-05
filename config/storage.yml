@@ -1,6 +1,12 @@
 test:
   service: Disk
   root: <%= Rails.root.join("tmp/storage") %>
+  public: true
+
+test_fixtures:
+  service: Disk
+  root: <%= Rails.root.join("tmp/storage_fixtures") %>
+  public: true
 
 local_production:
   service: Disk

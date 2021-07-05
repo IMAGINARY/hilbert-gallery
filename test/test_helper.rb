@@ -1,6 +1,7 @@
 ENV['RAILS_ENV'] ||= 'test'
 require_relative "../config/environment"
 require "rails/test_help"
+require "hilbert_fixture_set"
 
 class ActiveSupport::TestCase
   # Run tests in parallel with specified workers
@@ -11,6 +12,12 @@ class ActiveSupport::TestCase
 
   # Add more helper methods to be used by all tests here...
 end
+
+ActiveStorage::HilbertFixtureSet.file_fixture_path ||= Rails.root.join(*[
+  ENV.fetch("FIXTURES_PATH") { File.join("test", "fixtures") },
+  ENV["FIXTURES_DIR"],
+  "files"
+].compact_blank)
 
 Shoulda::Matchers.configure do |config|
   config.integrate do |with|

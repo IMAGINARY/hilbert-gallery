@@ -7,7 +7,6 @@ class ControlPanelController < ApplicationController
         filename: "sample_images/#{n}.jpg",
         thumbnail: "sample_images/#{n}-thumb.jpg",
       })
-      print @images
     end
   end
 end

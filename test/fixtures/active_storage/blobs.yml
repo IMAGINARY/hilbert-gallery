@@ -1,0 +1,17 @@
+photo_one_blob:
+  <%= ActiveStorage::HilbertFixtureSet.blob(filename: "1.jpg", service_name: "test_fixtures") %>
+
+photo_two_blob:
+  <%= ActiveStorage::HilbertFixtureSet.blob(filename: "2.jpg", service_name: "test_fixtures") %>
+
+photo_three_blob:
+  <%= ActiveStorage::HilbertFixtureSet.blob(filename: "3.jpg", service_name: "test_fixtures") %>
+
+photo_four_blob:
+  <%= ActiveStorage::HilbertFixtureSet.blob(filename: "4.jpg", service_name: "test_fixtures") %>
+
+photo_five_blob:
+  <%= ActiveStorage::HilbertFixtureSet.blob(filename: "5.jpg", service_name: "test_fixtures") %>
+
+photo_six_blob:
+  <%= ActiveStorage::HilbertFixtureSet.blob(filename: "6.jpg", service_name: "test_fixtures") %>

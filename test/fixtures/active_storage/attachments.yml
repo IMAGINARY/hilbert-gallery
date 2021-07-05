@@ -1,0 +1,29 @@
+photo_1:
+  name: media_file
+  record: one (Exhibit)
+  blob: photo_one_blob
+
+photo_2:
+  name: media_file
+  record: two (Exhibit)
+  blob: photo_two_blob
+
+photo_3:
+  name: media_file
+  record: three (Exhibit)
+  blob: photo_three_blob
+
+photo_4:
+  name: media_file
+  record: four (Exhibit)
+  blob: photo_four_blob
+
+photo_5:
+  name: media_file
+  record: five (Exhibit)
+  blob: photo_five_blob
+
+photo_6:
+  name: media_file
+  record: six (Exhibit)
+  blob: photo_six_blob

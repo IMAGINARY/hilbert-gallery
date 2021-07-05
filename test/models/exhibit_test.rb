@@ -12,24 +12,25 @@ class ExhibitTest < ActiveSupport::TestCase
     should validate_length_of(:country).is_equal_to(2)
     should validate_length_of(:submitter_name).is_at_most(100)
     should validate_length_of(:submitter_email).is_at_most(100)
+    should validate_presence_of(:media_file).with_message("must be uploaded to save.")
   end
 
   context "validations with city" do
     subject { Exhibit.create(city: 'Ciudad Autónoma de Buenos Aires') }
 
-    should validate_presence_of(:country).with_message("You must specify a country if the city or region are entered.")
+    should validate_presence_of(:country).with_message("must be specified if the city or region are entered.")
   end
 
   context "validations with region" do
     subject { Exhibit.create(region: 'Buenos Aires') }
 
-    should validate_presence_of(:country).with_message("You must specify a country if the city or region are entered.")
+    should validate_presence_of(:country).with_message("must be specified if the city or region are entered.")
   end
 
   context "validations with region and city" do
     subject { Exhibit.create(city: 'Ciudad Autónoma de Buenos Aires', region: 'Buenos Aires') }
 
-    should validate_presence_of(:country).with_message("You must specify a country if the city or region are entered.")
+    should validate_presence_of(:country).with_message("must be specified if the city or region are entered.")
   end
 
   context "validations without region or city" do

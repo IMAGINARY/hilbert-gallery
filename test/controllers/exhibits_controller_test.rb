@@ -19,7 +19,7 @@ class ExhibitsControllerTest < ActionDispatch::IntegrationTest
   test "should create exhibit" do
     sample = exhibits(:five)
     assert_difference("Exhibit.count") do
-      post exhibits_url, params: { exhibit: { caption: 'New caption', credits: sample.credits, year: sample.year, city: sample.city, region: sample.region, country: sample.country, notes: sample.notes, submitter_name: sample.submitter_name, submitter_email: sample.submitter_email } }
+      post exhibits_url, params: { exhibit: { caption: 'New caption', credits: sample.credits, year: sample.year, city: sample.city, region: sample.region, country: sample.country, notes: sample.notes, submitter_name: sample.submitter_name, submitter_email: sample.submitter_email, media_file: fixture_file_upload("1.jpg", "image/jpg") } }
     end
 
     assert_redirected_to exhibit_path(Exhibit.last)
@@ -34,13 +34,55 @@ class ExhibitsControllerTest < ActionDispatch::IntegrationTest
     assert_equal Exhibit.last.submitter_email, sample.submitter_email
   end
 
-  test "should fail creating exhibit" do
+  test "should create exhibit with minimal parameters" do
+    assert_difference("Exhibit.count") do
+      # We make it fail by specifying a city without specifying the country
+      post exhibits_url, params: { exhibit: { media_file: fixture_file_upload("1.jpg", "image/jpg")  } }
+    end
+
+    assert_redirected_to exhibit_path(Exhibit.last)
+  end
+
+  test "should create exhibit with few parameters" do
+    assert_difference("Exhibit.count") do
+      # We make it fail by specifying a city without specifying the country
+      post exhibits_url, params: { exhibit: { city: 'Berlin', country: 'DE', media_file: fixture_file_upload("1.jpg", "image/jpg")  } }
+    end
+
+    assert_redirected_to exhibit_path(Exhibit.last)
+  end
+
+  test "should fail creating exhibit if city is specified without country" do
     assert_no_difference("Exhibit.count") do
       # We make it fail by specifying a city without specifying the country
-      post exhibits_url, params: { exhibit: { city: 'Berlin' } }
+      post exhibits_url, params: { exhibit: { city: 'Berlin', media_file: fixture_file_upload("1.jpg", "image/jpg")  } }
     end
 
     assert_response :success
+    assert_equal @controller.view_assigns['exhibit'].errors.messages.count, 1
+    assert_equal @controller.view_assigns['exhibit'].errors.messages[:country].count, 1
+  end
+
+  test "should fail creating exhibit if no file is attached" do
+    assert_no_difference("Exhibit.count") do
+      # We make it fail by specifying a city without specifying the country
+      post exhibits_url, params: { exhibit: { empty: true } }
+    end
+
+    assert_response :success
+    assert_equal @controller.view_assigns['exhibit'].errors.messages.count, 1
+    assert_equal @controller.view_assigns['exhibit'].errors.messages[:media_file].count, 1
+  end
+
+  test "should fail creating exhibit if the media file is the wrong format" do
+    assert_no_difference("Exhibit.count") do
+      # We make it fail by specifying a city without specifying the country
+      post exhibits_url, params: { exhibit: { media_file: fixture_file_upload("invalid.md", "text/markdown")  } }
+    end
+
+    assert_response :success
+    assert_equal @controller.view_assigns['exhibit'].errors.messages.count, 1
+    assert_equal @controller.view_assigns['exhibit'].errors.messages[:media_file].count, 1
   end
 
   test "should get edit" do
@@ -76,5 +118,11 @@ class ExhibitsControllerTest < ActionDispatch::IntegrationTest
       delete exhibit_path(exhibits(:one))
     end
     assert_redirected_to exhibits_path
+  end
+
+  def after_teardown
+    super
+    FileUtils.rm_rf(ActiveStorage::Blob.service.root)
+    FileUtils.rm_rf(ActiveStorage::Blob.services.fetch(:test_fixtures).root)
   end
 end
