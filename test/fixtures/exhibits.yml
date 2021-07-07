@@ -6,6 +6,7 @@ one:
   year: 2017
   city: Basel
   country: CH
+#  tag_names: [ 'umzug', 'kinderumzug', 'clown' ]
   notes: CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
   submitter_name: Eric Londaits
   submitter_email: eric.londaits@imaginary.org
@@ -15,6 +16,7 @@ two:
   credits: Hofec
   year: 2009
   country: CH
+#  tag_names: [ 'umzug', 'maske', 'altfrank' ]
   notes: CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
   submitter_name: Eric Londaits
   submitter_email: eric.londaits@imaginary.org
@@ -23,6 +25,7 @@ three:
   caption: Fasnacht in Basel
   credits: Max Karmazin
   year: 2016
+#  tag_names: [ 'umzug', 'maske', 'guggenmusik', 'unheimlich' ]
   notes: CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons
   submitter_name: Eric Londaits
   submitter_email: eric.londaits@imaginary.org
@@ -33,6 +36,7 @@ four:
   year: 2010
   city: Bern
   country: CH
+#  tag_names: [ 'kostüme', 'schmetterling', 'natur', 'fee' ]
   notes: CC BY 3.0 <https://creativecommons.org/licenses/by/3.0>, via Wikimedia Commons
   submitter_name: Eric Londaits
   submitter_email: eric.londaits@imaginary.org
@@ -44,6 +48,7 @@ five:
   city: Freiburg im Breisgau
   region: Baden-Württemberg
   country: DE
+#  tag_names: [ 'maske', 'holzmaske', 'natur', 'reblaus', 'narrenhäs', 'larve' ]
   notes: CC BY 2.0 <https://creativecommons.org/licenses/by/2.0>, via Wikimedia Commons
   submitter_name: Eric Londaits
   submitter_email: eric.londaits@imaginary.org
@@ -54,6 +59,7 @@ six:
   year: 2016
   region: Bayern
   country: DE
+#  tag_names: [ 'umzug', 'kostüme', 'natur', 'narrenhäs', 'larve', 'wilder mann']
   notes: |
     Fotografiert beim Großen Narrentreffen der Vereinigung Schwäbisch-Alemannischer Narrenzünfte (VSAN) in Lindau.
     Narrensprung am Sonntag, 24. Januar 2016.

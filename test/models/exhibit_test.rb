@@ -44,4 +44,22 @@ class ExhibitTest < ActiveSupport::TestCase
     assert_equal exhibits(:five).location, 'Freiburg im Breisgau (Baden-Württemberg), Germany'
     assert_equal exhibits(:six).location, 'Bayern, Germany'
   end
+
+  test "tags can be accessed as a string" do
+    assert_equal exhibits(:one).tags_as_string, 'kinderumzug, clown, umzug'
+  end
+
+  test "tags can be modified through a string" do
+    assert_equal exhibits(:one).tag_names.count, 3
+
+    assert_changes('exhibits(:one).tags.count') do
+      exhibits(:one).tags_as_string = 'kinderumzug, clown, umzug, farbe'
+      exhibits(:one).save!
+    end
+
+    assert_changes('exhibits(:one).tags.count') do
+      exhibits(:one).tags_as_string = 'kinderumzug, clown, umzug'
+      exhibits(:one).save
+    end
+  end
 end

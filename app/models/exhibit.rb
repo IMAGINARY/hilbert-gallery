@@ -13,6 +13,8 @@ class Exhibit < ApplicationRecord
             content_type: [:gif, :png, :jpg, :jpeg, :mp4],
             size: { less_than: 100.megabytes , message: 'must be less than 100MB in size.' }
 
+  Gutentag::ActiveRecord.call self
+
   def country_name
     ISO3166::Country[country]
   end
@@ -25,5 +27,14 @@ class Exhibit < ApplicationRecord
             end
     parts << country_name
     parts.filter { |v| v.present? }.join(', ')
+  end
+
+  def tags_as_string
+    self.tag_names.join(', ')
+  end
+
+  # Split up the provided value by commas and (optional) spaces.
+  def tags_as_string=(string)
+    self.tag_names = string.split(/,\s*/)
   end
 end

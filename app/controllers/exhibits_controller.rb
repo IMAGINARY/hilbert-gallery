@@ -44,6 +44,6 @@ class ExhibitsController < ApplicationController
 
   private
   def exhibit_params
-    params.require(:exhibit).permit(:caption, :credits, :year, :city, :region, :country, :notes, :submitter_name, :submitter_email, :media_file)
+    params.require(:exhibit).permit(:caption, :credits, :year, :city, :region, :country, :tags_as_string, :notes, :submitter_name, :submitter_email, :media_file)
   end
 end

@@ -30,6 +30,10 @@
                 <span class="value"><%= @exhibit.location || '-' %></span>
               </li>
               <li class="detailview-field">
+                <span class="name">Tags: </span>
+                <span class="value"><%= @exhibit.tags_as_string || '-' %></span>
+              </li>
+              <li class="detailview-field">
                 <span class="name">Notes: </span>
                 <span class="value"><%= simple_format(@exhibit.notes) %></span>
               </li>

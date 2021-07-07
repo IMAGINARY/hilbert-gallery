@@ -30,6 +30,10 @@ gem 'redis', '~> 4.0'
 # https://github.com/stefanpenner/country_select
 gem 'country_select', '~> 4.0'
 
+# Tags
+# https://github.com/pat/gutentag
+gem 'gutentag', '~> 2.5'
+
 # Active Storage Validations
 # https://github.com/igorkasyanchuk/active_storage_validations
 gem 'active_storage_validations'

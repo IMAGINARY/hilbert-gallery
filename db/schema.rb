@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_01_191515) do
+ActiveRecord::Schema.define(version: 2021_07_07_172437) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,6 +55,26 @@ ActiveRecord::Schema.define(version: 2021_07_01_191515) do
     t.string "submitter_email"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "gutentag_taggings", force: :cascade do |t|
+    t.integer "tag_id", null: false
+    t.integer "taggable_id", null: false
+    t.string "taggable_type", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["tag_id"], name: "index_gutentag_taggings_on_tag_id"
+    t.index ["taggable_type", "taggable_id", "tag_id"], name: "unique_taggings", unique: true
+    t.index ["taggable_type", "taggable_id"], name: "index_gutentag_taggings_on_taggable_type_and_taggable_id"
+  end
+
+  create_table "gutentag_tags", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "taggings_count", default: 0, null: false
+    t.index ["name"], name: "index_gutentag_tags_on_name", unique: true
+    t.index ["taggings_count"], name: "index_gutentag_tags_on_taggings_count"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
