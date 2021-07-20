@@ -27,3 +27,13 @@ photo_6:
   name: media_file
   record: six (Exhibit)
   blob: photo_six_blob
+
+video_1:
+  name: media_file
+  record: seven (Exhibit)
+  blob: video_one_blob
+
+video_2:
+  name: media_file
+  record: eight (Exhibit)
+  blob: video_two_blob

@@ -6,9 +6,16 @@
         <div class="row">
           <div class="col-md-8">
             <% if (@exhibit.media_file.present?) %>
+              <% if (@exhibit.image?) %>
               <div>
                 <img class="img-fluid" src="<%= url_for(@exhibit.media_file) %>" />
               </div>
+              <% end %>
+              <% if (@exhibit.video?) %>
+                <div>
+                  <video class="img-fluid" src="<%= url_for(@exhibit.media_file) %>" controls />
+                </div>
+              <% end %>
             <% end %>
           </div>
           <div class="col-md-4">

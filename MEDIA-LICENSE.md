@@ -41,3 +41,21 @@ Ian Holton from Beijing, China, [CC BY 2.0](https://creativecommons.org/licenses
 
 **Attribution:**
 Photo: Andreas Praefcke, [CC BY 4.0](https://creativecommons.org/licenses/by/4.0), via Wikimedia Commons
+
+## v1.mp4
+
+[Basler_Fasnacht_movie_1](https://commons.wikimedia.org/wiki/File:Basler_Fasnacht_movie_1.ogv)
+
+**Attribution:**
+Photo:
+דוד שי
+[CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0), via Wikimedia Commons
+
+## v2.mp4
+
+[Basler_Fasnacht_movie_4a](https://commons.wikimedia.org/wiki/File:Basler_Fasnacht_movie_4a.ogv)
+
+**Attribution:**
+Photo:
+דוד שי
+[CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0), via Wikimedia Commons

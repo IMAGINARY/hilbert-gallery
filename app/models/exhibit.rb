@@ -37,4 +37,12 @@ class Exhibit < ApplicationRecord
   def tags_as_string=(string)
     self.tag_names = string.split(/,\s*/)
   end
+
+  def image?
+    %w[jpg jpeg png].include? media_file.filename.extension.downcase
+  end
+
+  def video?
+    %w[mp4 webm mov ogv ogg].include? media_file.filename.extension.downcase
+  end
 end

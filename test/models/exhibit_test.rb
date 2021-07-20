@@ -62,4 +62,11 @@ class ExhibitTest < ActiveSupport::TestCase
       exhibits(:one).save
     end
   end
+
+  test "exhibits can be videos or images" do
+    assert exhibits(:one).image?
+    assert_not exhibits(:one).video?
+    assert_not exhibits(:seven).image?
+    assert exhibits(:seven).video?
+  end
 end

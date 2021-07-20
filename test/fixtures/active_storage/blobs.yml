@@ -15,3 +15,9 @@ photo_five_blob:
 
 photo_six_blob:
   <%= ActiveStorage::HilbertFixtureSet.blob(filename: "6.jpg", service_name: "test_fixtures") %>
+
+video_one_blob:
+  <%= ActiveStorage::HilbertFixtureSet.blob(filename: "1.mp4", service_name: "test_fixtures") %>
+
+video_two_blob:
+  <%= ActiveStorage::HilbertFixtureSet.blob(filename: "2.mp4", service_name: "test_fixtures") %>
