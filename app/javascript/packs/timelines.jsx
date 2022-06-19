@@ -1,12 +1,9 @@
 import React from 'react'
 import { createRoot } from 'react-dom/client';
 import PropTypes from 'prop-types';
-
-function TimelineEditor() {
-  return <h1>This is the timeline editor</h1>
-}
+import TimelineEditor from '../src/timeline-editor';
 
 document.addEventListener('DOMContentLoaded', () => {
-  const root = createRoot(document.getElementById('timelineEditor'));
+  const root = createRoot(document.getElementById('timelineEditorApp'));
   root.render(<TimelineEditor />);
 });
