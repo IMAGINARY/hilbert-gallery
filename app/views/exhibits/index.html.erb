@@ -7,11 +7,7 @@
         <% @exhibits.each do |exhibit| %>
           <div class="col-sm-4 col-md-3 col-lg-2 mb-4">
             <%= link_to(exhibit) do
-              if exhibit.video?
-                image_tag exhibit.media_file.preview(resize_to_limit: [300, 300]), class: 'img-fluid'
-              else
-                image_tag exhibit.media_file.variant(resize_to_limit: [300, 300]), class: 'img-fluid'
-              end
+              image_tag thumbnail_s(exhibit), class: 'img-fluid'
             end %>
           </div>
         <% end %>

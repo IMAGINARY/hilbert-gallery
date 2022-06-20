@@ -1,4 +1,6 @@
 class ExhibitsController < ApplicationController
+  include ExhibitThumbnails
+
   def index
     @exhibits = Exhibit.all
   end
