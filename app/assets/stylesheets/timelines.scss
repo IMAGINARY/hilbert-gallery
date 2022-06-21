@@ -17,9 +17,12 @@ body.timelines-view {
   height: 100%;
 
   .exhibit-library {
-    overflow: auto;
-    padding: 1em;
-    border-right: 1px solid #797979;
+    border-bottom: 1px solid #797979;
+
+    .exhibit-library-list {
+      padding: 1em;
+      overflow: auto;
+    }
   }
 
   .exhibit-library-droppable {
@@ -46,6 +49,25 @@ body.timelines-view {
 .exhibit-library {
   .exhibit-thumbnail {
     margin: 0 0.3em 0.3em 0;
+  }
+}
+
+.exhibit-library-filters {
+  margin: 1em 1em 0 1em;
+  font-size: 0.85em;
+
+  .custom-select-sm {
+    min-width: 80px;
+    border-radius: 1.1em;
+    font-size: 0.95em;
+    color: black;
+    margin-right: 0.5em;
+  }
+
+  label {
+    font-weight: bold;
+    margin-right: 0.4em;
+    margin-left: 0.6em;
   }
 }
 

@@ -29,7 +29,7 @@ module Api
 
       def exhibit_to_json_basic(exhibit)
         {
-          id: exhibit.id,
+          id: exhibit.id.to_s,
           caption: exhibit.caption,
           year: exhibit.year,
           city: exhibit.city,
