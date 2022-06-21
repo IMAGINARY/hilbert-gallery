@@ -43,3 +43,5 @@ yarn-debug.log*
 # Ignore gems, these have to be redownloaded with 'bundle install' when cloning
 /vendor/cache
 /work
+
+/config/credentials/production.key
