@@ -13,8 +13,8 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: 'json' } do
     namespace :v1 do
+      get 'exhibits/tags', to: 'exhibits#tags'
       resources :exhibits, only: [:index, :show]
-      get 'tags', to: 'exhibits#tags'
     end
   end
 

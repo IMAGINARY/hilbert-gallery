@@ -2,6 +2,7 @@ import React from 'react';
 import { Draggable, Droppable } from 'react-beautiful-dnd';
 import PropTypes from 'prop-types';
 import { exhibitIdToDraggableId } from './aux/draggable-id';
+import ExhibitThumbnail from './exhibit-thumbnail';
 
 export default function StationTimeline(props) {
   const { index, station, sequence } = props;
@@ -21,9 +22,7 @@ export default function StationTimeline(props) {
             {...provided.draggableProps}
             {...provided.dragHandleProps}
           >
-            <div className="exhibit-thumbnail" key={i}>
-              {exhibit.id}
-            </div>
+            <ExhibitThumbnail exhibit={exhibit} key={draggableId} />
           </div>
         )}
       </Draggable>

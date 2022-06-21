@@ -1,17 +1,39 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
+import PropTypes from 'prop-types';
+import axios from 'axios';
 import ExhibitLibrary from './exhibit-library';
 import StationTimeline from './station-timeline';
-import mockExhibits from './mock-data-exhibits';
 import mockStations from './mock-data-stations';
 import { exhibitIdFromDraggableId } from './aux/draggable-id';
+import Loader from './loader';
 
-export default function TimelineEditor() {
+export default function TimelineEditor(props) {
+  const { exhibitsApiRoot } = props;
+
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [exhibits, setExhibits] = useState([]);
   const [timelines, setTimelines] = useState(
     Object.fromEntries(
       mockStations.map(s => [s.id, { sequence: [] }])
     ),
   );
+
+  const exhibitsById = Object.fromEntries(exhibits.map(exhibit => [exhibit.id, exhibit]));
+
+  useEffect(() => {
+    setLoading(true);
+    setError(null);
+    axios.get(exhibitsApiRoot)
+      .then((response) => {
+        setExhibits(response.data.exhibits);
+        setLoading(false);
+      })
+      .catch((err) => {
+        setError(err.message);
+      });
+  }, []);
 
   const onDragEnd = useCallback((result) => {
     const { source, destination } = result;
@@ -36,7 +58,7 @@ export default function TimelineEditor() {
         timeline.sequence.reduce((seqMax, item) => Math.max(seqMax, item.timelineId), 0)
       ), 0) + 1;
       newSequence.splice(destination.index, 0,
-        { id: exhibitId, timelineId: newTimelineId });
+        Object.assign({}, exhibitsById[exhibitId], { timelineId: newTimelineId }));
       setTimelines(Object.assign({}, timelines,
         Object.fromEntries([[destination.droppableId, { sequence: newSequence }]])));
     } else if (source.droppableId === destination.droppableId) {
@@ -64,19 +86,25 @@ export default function TimelineEditor() {
 
   return (
     <div className="timeline-editor">
-      <DragDropContext onDragEnd={onDragEnd}>
-        <ExhibitLibrary exhibits={mockExhibits} />
-        <div className="station-scripts">
-          { mockStations.map((station, i) => (
-            <StationTimeline
-              index={i}
-              key={station.id}
-              station={station}
-              sequence={timelines[station.id].sequence}
-            />
-          ))}
-        </div>
-      </DragDropContext>
+      <Loader loading={loading} error={error}>
+        <DragDropContext onDragEnd={onDragEnd}>
+          <ExhibitLibrary exhibits={exhibits} />
+          <div className="station-scripts">
+            { mockStations.map((station, i) => (
+              <StationTimeline
+                index={i}
+                key={station.id}
+                station={station}
+                sequence={timelines[station.id].sequence}
+              />
+            ))}
+          </div>
+        </DragDropContext>
+      </Loader>
     </div>
   );
 }
+
+TimelineEditor.propTypes = {
+  exhibitsApiRoot: PropTypes.string.isRequired,
+};

@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import TimelineEditor from '../src/timeline-editor';
 
 document.addEventListener('DOMContentLoaded', () => {
-  const root = createRoot(document.getElementById('timelineEditorApp'));
-  root.render(<TimelineEditor />);
+  const element = document.getElementById('timelineEditorApp');
+  const root = createRoot(element);
+  root.render(<TimelineEditor exhibitsApiRoot={`${element.getAttribute('data-exhibits-api')}`} />);
 });

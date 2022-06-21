@@ -1,5 +1,5 @@
-$thumbnail-ratio: 4 / 3;
-$thumbnail-width: 100px;
+$thumbnail-ratio: 16 / 9;
+$thumbnail-width: 150px;
 $thumbnail-height: $thumbnail-width / $thumbnail-ratio;
 
 body.timelines-view {
@@ -13,13 +13,17 @@ body.timelines-view {
 
 .timeline-editor {
   display: flex;
+  flex-direction: column;
   height: 100%;
 
   .exhibit-library {
-    height: 100%;
     overflow: auto;
     padding: 1em;
     border-right: 1px solid #797979;
+  }
+
+  .exhibit-library-droppable {
+    display: flex;
   }
 }
 
@@ -32,8 +36,11 @@ body.timelines-view {
   font-size: 20px;
   font-weight: bold;
   line-height: $thumbnail-height;
-  background-color: darkcyan;
   color: white;
+  background-color: black;
+  background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
 }
 
 .exhibit-library {

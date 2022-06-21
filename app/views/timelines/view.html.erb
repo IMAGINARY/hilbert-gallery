@@ -1,4 +1,4 @@
 <% content_for :title, "Timeline #{@id}" %>
 <!--<div class="media-viewer" data-station="<%#= @id %>"></div>-->
-<div id="timelineEditorApp"></div>
+<div id="timelineEditorApp" data-exhibits-api="<%= api_v1_exhibits_url %>"></div>
 <%= javascript_pack_tag 'timelines' %>

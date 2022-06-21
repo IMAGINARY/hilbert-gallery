@@ -1,7 +1,10 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Draggable, Droppable } from 'react-beautiful-dnd';
 import { exhibitIdToDraggableId } from './aux/draggable-id';
+import Loader from './loader';
+import ExhibitThumbnail from './exhibit-thumbnail';
 
 export default function ExhibitLibrary(props) {
   const { exhibits } = props;
@@ -21,9 +24,7 @@ export default function ExhibitLibrary(props) {
             {...provided.draggableProps}
             {...provided.dragHandleProps}
           >
-            <div className="exhibit-thumbnail" key={i}>
-              {exhibit.id}
-            </div>
+            <ExhibitThumbnail exhibit={exhibit} key={exhibit.id} />
           </div>
         )}
       </Draggable>
@@ -32,9 +33,10 @@ export default function ExhibitLibrary(props) {
 
   return (
     <div className="exhibit-library">
-      <Droppable isDropDisabled droppableId="droppable-library-1">
+      <Droppable isDropDisabled droppableId="droppable-library-1" direction="horizontal">
         {(provided, snapshot) => (
           <div
+            className="exhibit-library-droppable"
             {...provided.droppableProps}
             ref={provided.innerRef}
           >
