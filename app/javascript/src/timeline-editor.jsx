@@ -49,7 +49,18 @@ export default function TimelineEditor(props) {
       return;
     }
 
-    if (result.source.droppableId === 'droppable-library-1') {
+    if (destination.droppableId === 'droppable-library-1') {
+      // Moving to the library
+      if (source.droppableId !== 'droppable-library-1') {
+        const newSource = Array.from(timelines[source.droppableId].sequence);
+        newSource.splice(source.index, 1);
+        setTimelines(Object.assign({}, timelines,
+          Object.fromEntries([
+            [source.droppableId, { sequence: newSource }],
+          ])));
+      }
+      // Ignore otherwise
+    } else if (source.droppableId === 'droppable-library-1') {
       // Moving from library to a sequence
       const exhibitId = exhibitIdFromDraggableId(result.draggableId);
       const newSequence = Array.from(timelines[destination.droppableId].sequence);

@@ -26,12 +26,12 @@ body.timelines-view {
   }
 
   .exhibit-library-droppable {
-    display: flex;
+    display: inline-flex;
   }
 }
 
 .exhibit-thumbnail {
-  display: inline-block;
+  display: block;
   width: $thumbnail-width;
   height: $thumbnail-height;
 
@@ -41,7 +41,7 @@ body.timelines-view {
   line-height: $thumbnail-height;
   color: white;
   background-color: black;
-  background-size: contain;
+  background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
 }
@@ -78,19 +78,33 @@ body.timelines-view {
   overflow: auto;
 
   .station-script {
-    display: inline-block;
+    display: block;
     margin: 0 1em 0 0;
 
     .sequence {
       display: flex;
       flex-direction: column;
-      padding: 0.3em;
+      padding: 10px;
       min-height: 100px;
-      min-width: calc(#{$thumbnail-width} + 0.3em * 2);
+      width: calc(#{$thumbnail-width} + 10px * 2);
       background-color: lightgray;
+      border-radius: 4px;
 
       .exhibit-thumbnail {
-        margin-bottom: 0.3em;
+        margin-bottom: 10px;
+      }
+
+      .stationName {
+        color: black;
+        font-weight: bold;
+        margin-bottom: 0.2em;
+        font-size: 2em;
+        line-height: 1;
+        margin-top: -0.1em;
+      }
+
+      .droppable-area {
+        min-height: $thumbnail-height * 0.5;
       }
     }
   }

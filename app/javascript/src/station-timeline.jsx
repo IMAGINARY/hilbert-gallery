@@ -31,19 +31,19 @@ export default function StationTimeline(props) {
 
   return (
     <div className="station-timeline">
-      <div className="stationName">{ `Station ${index} `}</div>
-      <Droppable droppableId={station.id}>
-        {(provided, snapshot) => (
-          <div ref={provided.innerRef} {...provided.droppableProps}>
-            <div className="station-script">
-              <div className="sequence">
+      <div className="station-script">
+        <div className="sequence">
+          <div className="stationName">{ index + 1 }</div>
+          <Droppable droppableId={station.id}>
+            {(provided, snapshot) => (
+              <div className="droppable-area" ref={provided.innerRef} {...provided.droppableProps}>
                 { items }
                 {provided.placeholder}
               </div>
-            </div>
-          </div>
-        )}
-      </Droppable>
+            )}
+          </Droppable>
+        </div>
+      </div>
     </div>
   );
 }

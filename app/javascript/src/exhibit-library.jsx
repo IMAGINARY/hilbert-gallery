@@ -80,7 +80,7 @@ export default function ExhibitLibrary(props) {
         </div>
       </div>
       <div className="exhibit-library-list">
-        <Droppable isDropDisabled droppableId="droppable-library-1" direction="horizontal">
+        <Droppable droppableId="droppable-library-1" direction="horizontal">
           {(provided, snapshot) => (
             <div
               className="exhibit-library-droppable"
