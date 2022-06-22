@@ -1,0 +1,50 @@
+@import "colors";
+
+$player-height: 40px;
+$player-padding: 10px;
+
+.demo-player {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: $player-height;
+  padding: $player-padding;
+  background-color: $color-bar;
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+  box-sizing: content-box;
+  font-size: 0.85em;
+
+  .play-stop {
+    width: $player-height;
+    height: $player-height;
+    border: none;
+    border-radius: 50%;
+    background-color: white;
+    background-image: image-url('font-awesome/play-solid.svg');
+    background-size: 60% 60%;
+    background-position: 60% center;
+    background-repeat: no-repeat;
+    margin-right: 1.6em;
+
+    &.playing {
+      background-image: image-url('font-awesome/stop-solid.svg');
+      background-position: center center;
+    }
+  }
+
+  .custom-select-sm {
+    min-width: 80px;
+    border-radius: 1.1em;
+    font-size: 0.95em;
+    color: black;
+    margin-right: 0.5em;
+  }
+
+  label {
+    font-weight: bold;
+    margin-right: 0.4em;
+    margin-left: 0.6em;
+  }
+}

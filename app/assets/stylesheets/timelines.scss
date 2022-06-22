@@ -1,5 +1,7 @@
+@import "colors";
+
 $thumbnail-ratio: 16 / 9;
-$thumbnail-width: 150px;
+$thumbnail-width: 130px;
 $thumbnail-height: $thumbnail-width / $thumbnail-ratio;
 
 body.timelines-view {
@@ -17,11 +19,13 @@ body.timelines-view {
   height: 100%;
 
   .exhibit-library {
-    border-bottom: 1px solid #797979;
+    background-color: $color-bar;
 
     .exhibit-library-list {
-      padding: 1em;
+      padding: 15px;
+      font-size: 0;
       overflow: auto;
+      background-color: $color-panel;
     }
   }
 
@@ -44,16 +48,17 @@ body.timelines-view {
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
+  border: 1px solid $color-hairline;
 }
 
 .exhibit-library {
   .exhibit-thumbnail {
-    margin: 0 0.3em 0.3em 0;
+    margin: 0 15px 0 0;
   }
 }
 
 .exhibit-library-filters {
-  margin: 1em 1em 0 1em;
+  margin: 10px;
   font-size: 0.85em;
 
   .custom-select-sm {
@@ -80,6 +85,7 @@ body.timelines-view {
   .station-script {
     display: block;
     margin: 0 1em 0 0;
+    padding-bottom: 5em;
 
     .sequence {
       display: flex;
@@ -87,7 +93,7 @@ body.timelines-view {
       padding: 10px;
       min-height: 100px;
       width: calc(#{$thumbnail-width} + 10px * 2);
-      background-color: lightgray;
+      background-color: $color-panel;
       border-radius: 4px;
 
       .exhibit-thumbnail {

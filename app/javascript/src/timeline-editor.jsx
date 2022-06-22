@@ -7,6 +7,7 @@ import StationTimeline from './station-timeline';
 import mockStations from './mock-data-stations';
 import { exhibitIdFromDraggableId } from './aux/draggable-id';
 import Loader from './loader';
+import DemoPlayer from './demo-player';
 
 export default function TimelineEditor(props) {
   const { exhibitsApiRoot } = props;
@@ -112,6 +113,7 @@ export default function TimelineEditor(props) {
           </div>
         </DragDropContext>
       </Loader>
+      <DemoPlayer onPlay={(data) => { console.log('play', data); }} />
     </div>
   );
 }
