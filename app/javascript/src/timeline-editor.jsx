@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, {useState, useCallback, useEffect, useMemo} from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
 import PropTypes from 'prop-types';
 import axios from 'axios';
@@ -10,6 +10,7 @@ import Loader from './loader';
 import DemoPlayer from './demo-player';
 import buildPlaylist from './playlist-builder';
 import ViewerConn from './viewer-conn';
+import Sequencer from "./sequencer";
 
 export default function TimelineEditor(props) {
   const { exhibitsApiRoot } = props;
@@ -22,6 +23,10 @@ export default function TimelineEditor(props) {
       mockStations.map(s => [s.id, { sequence: [] }])
     ),
   );
+  const [playing, setPlaying] = useState(false);
+  const sequencer = useMemo(() => new Sequencer(), []);
+  sequencer.events.on('play', () => { setPlaying(true); });
+  sequencer.events.on('stop', () => { setPlaying(false); });
 
   function preview(stationId, exhibitId) {
     axios.get(`${exhibitsApiRoot}/${exhibitId}`)
@@ -112,11 +117,16 @@ export default function TimelineEditor(props) {
   });
 
   const handlePlay = useCallback((options) => {
-    buildPlaylist(timelines, Object.assign({}, options, {
-      exhibitsApiRoot,
-    })).then((response) => {
-      console.log('exhibits', response);
-    });
+    if (sequencer.isPlaying) {
+      sequencer.stop();
+    } else {
+      buildPlaylist(timelines, Object.assign({}, options, {
+        exhibitsApiRoot,
+      })).then((playlist) => {
+        console.log('Playing', playlist);
+        sequencer.play(playlist);
+      });
+    }
   }, [timelines, exhibitsApiRoot]);
 
   return (
@@ -136,7 +146,7 @@ export default function TimelineEditor(props) {
           </div>
         </DragDropContext>
       </Loader>
-      <DemoPlayer onPlay={handlePlay} />
+      <DemoPlayer onPlay={handlePlay} playing={playing} />
     </div>
   );
 }

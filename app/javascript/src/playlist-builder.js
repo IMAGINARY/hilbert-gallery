@@ -1,11 +1,27 @@
 import axios from 'axios';
 
 function exhibitToPlaylistItem(exhibit, options) {
-
+  return {
+    mimetype: exhibit.file_type,
+    url: exhibit.file_url,
+    fit: 'contain',
+    color: 'black',
+    transition: {
+      type: 'fade',
+      options: {
+        duration: 1,
+        color: 'black',
+      },
+    },
+    animation: {
+      type: 'none',
+      options: {},
+    },
+    duration: exhibit.is_video ? 20 : options.duration,
+  };
 }
 
 export default function buildPlaylist(timelines, options) {
-  console.log('buildPlaylist', timelines, options);
   // Collect all exhibit IDs
   const seqIds = sequence => sequence
     .reduce((ids, item) => Object.assign(ids, { [item.id]: true }), {});
@@ -18,7 +34,14 @@ export default function buildPlaylist(timelines, options) {
     .then((response) => {
       const exhibit = response.data;
       exhibits[exhibit.id] = exhibit;
-      console.log(`Fetched ${exhibit.id}`);
     })))
-    .then(() => exhibits);
+    .then(() => Object.fromEntries(
+      Object.entries(timelines).map(([station, timeline]) => [
+        station,
+        timeline.sequence.map(item => ({
+          action: 'show',
+          args: exhibitToPlaylistItem(exhibits[item.id], options),
+        })),
+      ])
+    ));
 }
