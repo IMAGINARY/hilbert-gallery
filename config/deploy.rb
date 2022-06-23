@@ -18,6 +18,7 @@ set :repository, '.'
 set :branch, 'main'
 set :rvm_use_path, '/home/imaginary/.rvm/scripts/rvm'
 set :rsync_options, %w[--recursive --delete --delete-excluded --exclude .git*]
+set :force_asset_precompile, true
 
 # Optional settings:
 #   set :user, 'foobar'          # Username in the server to SSH to.
