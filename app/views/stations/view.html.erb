@@ -1,3 +1,6 @@
 <% content_for :title, "Station #{@id}" %>
-<div class="media-viewer" data-station="<%= @id %>"></div>
+<div class="media-viewer" data-station="<%= @id %>">
+  <hilbert-gallery-viewer id="viewer" />
+</div>
+<%= javascript_include_tag 'hilbert-gallery-viewer/hilbert-gallery-viewer', :type => 'module' %>
 <%= javascript_pack_tag 'stations' %>
