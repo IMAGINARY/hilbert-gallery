@@ -45,6 +45,8 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'mina', '1.2.3'
+  # The official mina-rsync is not compatible with mina 1.0, so we use a fork
+  gem 'mina-rsync', '1.1.0', git: 'https://github.com/acurley/mina-rsync'
 end
 
 group :development do

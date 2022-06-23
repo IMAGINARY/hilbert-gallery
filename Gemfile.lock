@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/acurley/mina-rsync
+  revision: 3f92fc1a307d5e10cc8586d4b14196b7889baff1
+  specs:
+    mina-rsync (1.1.0)
+      mina (>= 0.3.0, < 2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -269,6 +276,7 @@ DEPENDENCIES
   jbuilder (~> 2.7)
   listen (~> 3.3)
   mina (= 1.2.3)
+  mina-rsync (= 1.1.0)!
   pg (~> 1.2.3)
   puma (~> 5.0)
   rack-mini-profiler (~> 2.0)
