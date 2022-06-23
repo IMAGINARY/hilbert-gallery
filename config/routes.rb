@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   get 'control_panel', to: 'control_panel#index'
 
+  get 'stations/demo', to: 'stations#demo'
   get 'stations/:id', to: 'stations#view'
   patch 'stations/:id/update', to: 'stations#update'
 

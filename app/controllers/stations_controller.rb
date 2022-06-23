@@ -10,4 +10,8 @@ class StationsController < ApplicationController
     MediaChannel.broadcast_to(@id, @message);
     render json: { result: "OK" }.to_json, status: :ok
   end
+
+  def demo
+
+  end
 end
