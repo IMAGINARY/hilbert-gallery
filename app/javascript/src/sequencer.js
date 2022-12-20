@@ -73,13 +73,9 @@ export default class Sequencer {
     );
 
     return Promise.all(allStations.map(stationId => ViewerConn.clear(stationId)))
-      .then(() => Promise.all(activeStations.map(stationId => ViewerConn.send(stationId,{
-        action: 'preload',
-        args: playlist[stationId].map((item) => ({
-          url: item.url,
-          mimetype: item.mimetype,
-        })),
-      }))))
+      .then(() => Promise.all(
+        activeStations.map(stationId => ViewerConn.preload(stationId, playlist[stationId]))
+      ))
       .then(() => {
         this.stepWithTimer();
       });

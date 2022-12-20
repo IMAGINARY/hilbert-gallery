@@ -1,22 +1,16 @@
-import MiniViewer from '../src/mini-viewer';
-
 function showError(text) {
   document.getElementById('errorLog').innerHTML = text;
 }
 
-$('[data-station]').each((i, element) => {
+$('hilbert-gallery-viewer').each((i, element) => {
   const stationID = $(element).attr('data-station');
-  const miniViewer = new MiniViewer($(element));
+  const viewer = element;
   try {
     console.log('Station %s waiting', stationID);
     window.connectMediaChannel(stationID, (data) => {
-      if (data.action === 'preload') {
-        miniViewer.preload(data.args);
-      } else if (data.action === 'show') {
-        miniViewer.show(data.args);
-      } else if (data.action === 'clear') {
-        miniViewer.clear();
-      }
+      const { action, args } = data;
+      console.log('Station %s received %s', stationID, action, args);
+      viewer.execute(action, args);
     });
   } catch (err) {
     showError(err.message);

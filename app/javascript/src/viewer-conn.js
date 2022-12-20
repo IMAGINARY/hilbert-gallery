@@ -18,6 +18,9 @@ function clear(stationId) {
   console.log(`Clearing station ${stationId}`);
   send(stationId, {
     action: 'clear',
+    args: {
+      transition: { type: 'fade' },
+    },
   });
 }
 
@@ -50,8 +53,20 @@ function show(stationId, exhibit, userOptions = {}) {
   });
 }
 
+function preload(stationId, playlist) {
+  console.log('Preloading', playlist);
+  send(stationId, {
+    action: 'preload',
+    args: playlist.map(item => ({
+      mimetype: item.args.mimetype,
+      url: item.args.url,
+    })),
+  });
+}
+
 export default {
   send,
   clear,
+  preload,
   show,
 };
