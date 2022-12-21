@@ -3,7 +3,7 @@ General description of the system, based on [this idea](https://matklad.github.i
 
 ## General description
 
-The *backend* allows creating exhibitions made from photos and videos, and dynamically asigning them
+The *backend* allows creating exhibitions made from sequences of photos and videos, and dynamically asigning them
 to client screens that will display them to visitors as a slideshow.
 
 The system then can autonomously playback the exhibition on its own. The server provides client screens
