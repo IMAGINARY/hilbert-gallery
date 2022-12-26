@@ -1,0 +1,11 @@
+<div class="container-fluid">
+  <div class="row mb-4">
+    <% @stations.each do |station| %>
+      <div class="col-md-6 col-lg-4 mt-4">
+        <div class="embed-responsive embed-responsive-16by9">
+          <iframe class="embed-responsive-item" src="display/<%= station.id %>"></iframe>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

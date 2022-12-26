@@ -28,6 +28,10 @@ class StationsController < ApplicationController
     @station = Station.find(params[:id])
   end
 
+  def display_all
+    @stations = Station.all
+  end
+
   def edit
     @station = Station.find(params[:id])
   end
