@@ -4,7 +4,7 @@ function send(stationId, message) {
   const csrfToken = $("[name='csrf-token']").attr('content');
 
   console.log('sending', message);
-  return axios.patch(`/stations/${stationId}/update`, {
+  return axios.patch(`/display/${stationId}/update`, {
     message,
   }, {
     headers: {

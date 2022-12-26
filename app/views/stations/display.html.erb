@@ -1,0 +1,4 @@
+<% content_for :title, "Station #{@station.id}" %>
+<hilbert-gallery-viewer id="viewer" data-station="<%= @station.id %>"></hilbert-gallery-viewer>
+<%= javascript_include_tag 'hilbert-gallery-viewer/hilbert-gallery-viewer', :type => 'module' %>
+<%= javascript_pack_tag 'stations' %>

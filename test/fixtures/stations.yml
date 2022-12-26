@@ -1,0 +1,31 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: 1
+  width: 1920
+  height: 1080
+
+two:
+  name: 2
+  width: 1920
+  height: 1080
+
+three:
+  name: 3
+  width: 1920
+  height: 1080
+
+four:
+  name: 4
+  width: 1920
+  height: 1080
+
+five:
+  name: 5
+  width: 1920
+  height: 1080
+
+six:
+  name: 6
+  width: 1920
+  height: 1080

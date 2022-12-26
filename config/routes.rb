@@ -6,9 +6,9 @@ Rails.application.routes.draw do
 
   get 'control_panel', to: 'control_panel#index'
 
-  get 'stations/demo', to: 'stations#demo'
-  get 'stations/:id', to: 'stations#view'
-  patch 'stations/:id/update', to: 'stations#update'
+  resources :stations
+  get 'display/:id', to: 'stations#display'
+  patch 'display/:id/update', to: 'stations#display_update'
 
   get 'timelines/:id', to: 'timelines#view'
 
@@ -16,6 +16,8 @@ Rails.application.routes.draw do
     namespace :v1 do
       get 'exhibits/tags', to: 'exhibits#tags'
       resources :exhibits, only: [:index, :show]
+      patch 'display/:id/update', to: 'stations#display_update'
+      resources :stations, only: [:index]
     end
   end
 
