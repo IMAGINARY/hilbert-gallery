@@ -26,4 +26,4 @@ test:
 
 production:
   <<: *default
-  database: hilbert_gallery_production
+  database: hilbert_gallery
