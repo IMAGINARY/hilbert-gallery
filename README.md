@@ -56,11 +56,11 @@ from the root project directory.
 
 ## Maintenance and other tasks
 
-Check `doc/cookbook.md` for details.
+Check [`docs/cookbook.md`](docs/cookbook.md) for several typical maintenance actions.
 
 ## Architecture
 
-See [ARCHITECTURE.md](ARCHITECTURE.md).
+See [`ARCHITECTURE.md`](ARCHITECTURE.md).
 
 ## Credits
 

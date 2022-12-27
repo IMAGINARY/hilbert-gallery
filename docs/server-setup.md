@@ -307,6 +307,7 @@ Reload config
    HILBERT_GALLERY_API_URL=http://le-server.local
    HILBERT_GALLERY_API_KEY=<The API key created in step 5>
    ```
+   You may also add a PORT key to change the port the sequencer listens on (defaults to 4123).
 6. Create a systemd service at `/etc/systemd/system/hilbert-gallery-sequencer.service` with the following contents
    ```
     [Unit]
@@ -333,4 +334,19 @@ Reload config
 8. Check the status
    ```
    systemctl status hilbert-gallery-sequencer.service
+   ```
+9. Add the sequencer's address to the app configuration at `/home/imaginary/app/current/config/environments/production.rb`:
+   ```
+   config.x.sequencer_api_url = "http://le-server.local:4123"
+   ```
+   If necessary adjust the server address or port number as appropriate.
+10. Set the API keys in rails:
+   ```
+   EDITOR="vi" rails credentials:edit
+   ```
+   set
+   ```
+   api_keys: 
+      - <The API key created in step 5>
+   hilbert_sequencer_api_key:  <The API key created in step 4>
    ```
