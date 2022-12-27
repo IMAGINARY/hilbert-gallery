@@ -280,3 +280,57 @@ Reload config
    ```
 8. Check if the web server responds correctly.
    If not, check logs at `/var/log/nginx/error.log`, `/home/imaginary/app/shared/log/`
+
+## Add the hilbert-gallery-sequencer
+
+1. Create the `/home/imaginary/hilbert-gallery-sequencer` directory
+2. Clone the repository at https://github.com/IMAGINARY/hilbert-gallery-sequencer.git
+   ```
+   git clone https://github.com/IMAGINARY/hilbert-gallery-sequencer.git
+   ```
+3. Install the dependencies
+   ```
+   cd hilbert-gallery-sequencer
+   npm install
+   ```
+4. Create a random API key for the sequencer
+   ```
+   node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+   ```
+5. Create a random API key for the server
+  ```
+   node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+   ```
+5. Create a .env file with the following contents
+   ```
+   API_KEYS=<The API key created in step 4>
+   HILBERT_GALLERY_API_URL=http://le-server.local
+   HILBERT_GALLERY_API_KEY=<The API key created in step 5>
+   ```
+6. Create a systemd service at `/etc/systemd/system/hilbert-gallery-sequencer.service` with the following contents
+   ```
+    [Unit]
+    Description=Hilbert Gallery Sequencer
+    After=network.target
+   
+    [Service]
+    Type=simple
+    User=imaginary
+    Group=imaginary
+    WorkingDirectory=/home/imaginary/hilbert-gallery-sequencer
+    ExecStart=/usr/bin/npm start
+    Restart=always
+    
+    [Install]
+    WantedBy=multi-user.target
+   ```
+7. Start the service
+   ```
+    systemctl daemon-reload
+    systemctl enable hilbert-gallery-sequencer.service
+    systemctl start hilbert-gallery-sequencer.service
+    ```
+8. Check the status
+   ```
+   systemctl status hilbert-gallery-sequencer.service
+   ```
