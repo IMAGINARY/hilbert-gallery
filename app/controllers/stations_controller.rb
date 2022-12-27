@@ -46,14 +46,6 @@ class StationsController < ApplicationController
     end
   end
 
-  def display_update
-    @station = Station.find(params[:id])
-    @message = params[:message]
-
-    MediaChannel.broadcast_to(@station.id, @message);
-    render json: { result: "OK" }.to_json, status: :ok
-  end
-
   def station_params
     params.require(:station).permit(:name, :width, :height)
   end

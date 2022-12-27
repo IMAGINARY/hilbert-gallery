@@ -9,8 +9,7 @@ import { exhibitIdFromDraggableId } from './aux/draggable-id';
 import Loader from './loader';
 import DemoPlayer from './demo-player';
 import buildPlaylist from './playlist-builder';
-import ViewerConn from './viewer-conn';
-import Sequencer from "./sequencer";
+import SequencerConn from './sequencer-conn';
 
 export default function TimelineEditor(props) {
   const { exhibitsApiRoot } = props;
@@ -24,30 +23,33 @@ export default function TimelineEditor(props) {
     ),
   );
   const [playing, setPlaying] = useState(false);
-  const sequencer = useMemo(() => new Sequencer(), []);
-  sequencer.events.on('play', () => { setPlaying(true); });
+  const sequencer = useMemo(() => new SequencerConn(), []);
+  sequencer.events.on('start', () => { setPlaying(true); });
   sequencer.events.on('stop', () => { setPlaying(false); });
 
   function preview(stationId, exhibitId) {
     axios.get(`${exhibitsApiRoot}/${exhibitId}`)
       .then((response) => {
-        ViewerConn.show(stationId, response.data);
+        sequencer.display(stationId, response.data);
       });
-  };
+  }
 
   const exhibitsById = Object.fromEntries(exhibits.map(exhibit => [exhibit.id, exhibit]));
 
-  useEffect(() => {
-    setLoading(true);
-    setError(null);
-    axios.get(exhibitsApiRoot)
-      .then((response) => {
-        setExhibits(response.data.exhibits);
-        setLoading(false);
-      })
-      .catch((err) => {
-        setError(err.message);
-      });
+  useEffect( () => {
+    (async () => {
+      setLoading(true);
+      setError(null);
+      await sequencer.status();
+      await axios.get(exhibitsApiRoot)
+        .then((response) => {
+          setExhibits(response.data.exhibits);
+          setLoading(false);
+        })
+        .catch((err) => {
+          setError(err.message);
+        });
+    })();
   }, []);
 
   const onDragEnd = useCallback((result) => {
@@ -116,15 +118,14 @@ export default function TimelineEditor(props) {
     }
   });
 
-  const handlePlay = useCallback((options) => {
+  const handlePlay = useCallback(async (options) => {
     if (sequencer.isPlaying) {
-      sequencer.stop();
+      await sequencer.stop();
     } else {
       buildPlaylist(timelines, Object.assign({}, options, {
         exhibitsApiRoot,
-      })).then((playlist) => {
-        console.log('Playing', playlist);
-        sequencer.play(playlist);
+      })).then(async (playlist) => {
+        await sequencer.start(playlist);
       });
     }
   }, [timelines, exhibitsApiRoot]);
