@@ -73,5 +73,7 @@ Rails.application.configure do
 
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
+
+  # Base URL of the hilbert-gallery-sequencer server
   config.x.sequencer_api_url = "http://localhost:4123"
 end
