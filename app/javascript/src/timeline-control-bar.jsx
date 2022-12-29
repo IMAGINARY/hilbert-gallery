@@ -1,9 +1,14 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import EditableField from './editable-field';
+import { cloneTimeline } from './timeline-actions';
 
-export default function DemoPlayer(props) {
-  const { playing, onPlay } = props;
+export default function TimelineControlBar(props) {
+  const {
+    playing, onPlay, timeline, onTimelineUpdate,
+    saving,
+  } = props;
 
   const [duration, setDuration] = useState('7.5');
   const [transition, setTransition] = useState('none');
@@ -17,10 +22,17 @@ export default function DemoPlayer(props) {
     });
   };
 
+  const handleTitleChange = (title) => {
+    const newTimeline = cloneTimeline(timeline);
+    newTimeline.title = title;
+    onTimelineUpdate(newTimeline);
+  };
+
   return (
-    <div className="demo-player">
+    <div className="timeline-control-bar">
       <div className="form-inline">
         <button type="button" className={classNames('play-stop', { playing })} onClick={handleClick} />
+        <EditableField id="title" value={(timeline && timeline.title) || ''} onChange={handleTitleChange} />
         <label htmlFor="duration">Duration:</label>
         <select id="duration" className="custom-select custom-select-sm" value={duration} onChange={(ev) => { setDuration(ev.target.value); }}>
           <option value="5">5s</option>
@@ -41,17 +53,28 @@ export default function DemoPlayer(props) {
           <option value="0">None</option>
           <option value="1/n">1/n</option>
         </select>
+        { saving && <div className="saving-icon" /> }
       </div>
     </div>
   );
 }
 
-DemoPlayer.propTypes = {
+TimelineControlBar.propTypes = {
   playing: PropTypes.bool,
+  saving: PropTypes.bool,
   onPlay: PropTypes.func,
+  timeline: PropTypes.shape({
+    id: PropTypes.number,
+    title: PropTypes.string,
+    script: PropTypes.object,
+  }),
+  onTimelineUpdate: PropTypes.func,
 };
 
-DemoPlayer.defaultProps = {
+TimelineControlBar.defaultProps = {
   playing: false,
+  saving: false,
   onPlay: () => {},
+  timeline: null,
+  onTimelineUpdate: () => {},
 };

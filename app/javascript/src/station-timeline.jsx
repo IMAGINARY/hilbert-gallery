@@ -33,8 +33,8 @@ export default function StationTimeline(props) {
     <div className="station-timeline">
       <div className="station-script">
         <div className="sequence">
-          <div className="stationName">{ index + 1 }</div>
-          <Droppable droppableId={station.id}>
+          <div className="stationName">{ station.name }</div>
+          <Droppable droppableId={String(station.id)}>
             {(provided, snapshot) => (
               <div className="droppable-area" ref={provided.innerRef} {...provided.droppableProps}>
                 { items }
@@ -51,7 +51,8 @@ export default function StationTimeline(props) {
 StationTimeline.propTypes = {
   index: PropTypes.number.isRequired,
   station: PropTypes.shape({
-    id: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
   }).isRequired,
   sequence: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,

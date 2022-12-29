@@ -3,12 +3,12 @@
 $player-height: 40px;
 $player-padding: 10px;
 
-.demo-player {
+.timeline-control-bar {
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  width: 100%;
+  width: auto;
   height: $player-height;
   padding: $player-padding;
   background-color: $color-bar;
@@ -46,5 +46,18 @@ $player-padding: 10px;
     font-weight: bold;
     margin-right: 0.4em;
     margin-left: 0.6em;
+  }
+
+  .saving-icon {
+    width: $player-height;
+    height: $player-height;
+    position: absolute;
+    right: $player-padding;
+    top: $player-padding;
+    background-image: image-url('font-awesome/floppy-disk-regular-white.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 66%;
+    opacity: 0.66;
   }
 }

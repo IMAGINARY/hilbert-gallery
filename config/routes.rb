@@ -11,12 +11,17 @@ Rails.application.routes.draw do
   get 'display/:id', to: 'stations#display'
   patch 'display/:id/update', to: 'stations#display_update'
 
-  get 'timelines/:id', to: 'timelines#view'
+  resources :timelines
+  # get 'timelines', to: 'timelines#index'
+  # get 'timelines/:id', to: 'timelines#view'
 
   namespace :api, defaults: { format: 'json' } do
     namespace :v1 do
       get 'exhibits/tags', to: 'exhibits#tags'
       resources :exhibits, only: [:index, :show]
+
+      resources :timelines
+
       patch 'display/:id/update', to: 'stations#display_update'
       resources :stations, only: [:index]
 

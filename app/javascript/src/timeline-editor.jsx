@@ -1,54 +1,102 @@
-import React, {useState, useCallback, useEffect, useMemo} from 'react';
+import React, {
+  useCallback, useEffect, useMemo, useState,
+} from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
 import PropTypes from 'prop-types';
-import axios from 'axios';
+import Loader from './loader';
 import ExhibitLibrary from './exhibit-library';
 import StationTimeline from './station-timeline';
-import mockStations from './mock-data-stations';
-import { exhibitIdFromDraggableId } from './aux/draggable-id';
-import Loader from './loader';
-import DemoPlayer from './demo-player';
-import buildPlaylist from './playlist-builder';
+import TimelineControlBar from './timeline-control-bar';
 import SequencerConn from './sequencer-conn';
+import buildPlaylist from './playlist-builder';
+import { exhibitIdFromDraggableId } from './aux/draggable-id';
+import {
+  fetchExhibits, fetchExhibit, fetchStations, fetchTimeline,
+  updateTimeline,
+} from './hilbert-gallery-api';
+import {
+  timelineMoveItem,
+  timelineSeq,
+  timelineSeqInsertItem,
+  timelineSeqMoveItem,
+  timelineSeqRemoveItem,
+} from './timeline-actions';
+import ThrottledSaver from './throttled-saver';
 
 export default function TimelineEditor(props) {
-  const { exhibitsApiRoot } = props;
+  const {
+    timelineId, exhibitsApiRoot, stationsApiRoot, timelinesApiRoot,
+  } = props;
 
   const [loading, setLoading] = useState(false);
+  const [saving, setSaving] = useState(false);
   const [error, setError] = useState(null);
+  const [stations, setStations] = useState([]);
+  const [timeline, setTimeline] = useState(null);
   const [exhibits, setExhibits] = useState([]);
-  const [timelines, setTimelines] = useState(
-    Object.fromEntries(
-      mockStations.map(s => [s.id, { sequence: [] }])
-    ),
-  );
   const [playing, setPlaying] = useState(false);
-  const sequencer = useMemo(() => new SequencerConn(), []);
-  sequencer.events.on('start', () => { setPlaying(true); });
-  sequencer.events.on('stop', () => { setPlaying(false); });
 
-  function preview(stationId, exhibitId) {
-    axios.get(`${exhibitsApiRoot}/${exhibitId}`)
-      .then((response) => {
-        sequencer.display(stationId, response.data);
-      });
-  }
+  const sequencer = useMemo(() => {
+    const connector = new SequencerConn();
+    connector.events.on('start', () => { setPlaying(true); });
+    connector.events.on('stop', () => { setPlaying(false); });
+    return connector;
+  }, []);
 
-  const exhibitsById = Object.fromEntries(exhibits.map(exhibit => [exhibit.id, exhibit]));
+  const preview = useCallback(async (stationId, exhibitId) => {
+    const exhibit = await fetchExhibit(exhibitsApiRoot, exhibitId);
+    sequencer.display(stationId, exhibit);
+  }, []);
 
-  useEffect( () => {
+  const exhibitsById = useMemo(
+    () => Object.fromEntries(exhibits.map(exhibit => [exhibit.id, exhibit])),
+    [exhibits]
+  );
+
+  const throttledSaver = useMemo(
+    () => {
+      const saver = new ThrottledSaver(
+        newTimeline => updateTimeline(timelinesApiRoot, newTimeline)
+      );
+      saver.events.on('saveStart', () => { setSaving(true); });
+      saver.events.on('saveEnd', () => { setSaving(false); });
+      return saver;
+    },
+    [timelinesApiRoot]
+  );
+
+  const handleTimelineUpdate = useCallback(async (updatedTimeline) => {
+    setTimeline(updatedTimeline);
+    throttledSaver.save(updatedTimeline);
+  });
+
+  window.testSave = async function () {
+    console.log('Saving... ', timeline);
+    await updateTimeline(timelinesApiRoot, timeline);
+    console.log('Saved.');
+  };
+
+  // Initialization
+  useEffect(() => {
     (async () => {
       setLoading(true);
       setError(null);
-      await sequencer.status();
-      await axios.get(exhibitsApiRoot)
-        .then((response) => {
-          setExhibits(response.data.exhibits);
-          setLoading(false);
-        })
-        .catch((err) => {
-          setError(err.message);
-        });
+      try {
+        await sequencer.status();
+
+        const fetchedStations = await fetchStations(stationsApiRoot);
+        setStations(fetchedStations);
+
+        const fetchedTimeline = await fetchTimeline(timelinesApiRoot, timelineId);
+        setTimeline(fetchedTimeline);
+
+        const fetchedExhibits = await fetchExhibits(exhibitsApiRoot);
+        setExhibits(fetchedExhibits);
+
+        setLoading(false);
+      } catch (err) {
+        setError(err.message);
+      }
     })();
   }, []);
 
@@ -69,66 +117,46 @@ export default function TimelineEditor(props) {
     if (destination.droppableId === 'droppable-library-1') {
       // Moving to the library
       if (source.droppableId !== 'droppable-library-1') {
-        const newSource = Array.from(timelines[source.droppableId].sequence);
-        newSource.splice(source.index, 1);
-        setTimelines(Object.assign({}, timelines,
-          Object.fromEntries([
-            [source.droppableId, { sequence: newSource }],
-          ])));
+        handleTimelineUpdate(timelineSeqRemoveItem(timeline, source.droppableId, source.index));
       }
-      // Ignore otherwise
     } else if (source.droppableId === 'droppable-library-1') {
-      // Moving from library to a sequence
+      // Moving from the library to a sequence
       const exhibitId = exhibitIdFromDraggableId(result.draggableId);
+      const exhibit = exhibitsById[exhibitId];
+      handleTimelineUpdate(
+        timelineSeqInsertItem(timeline, destination.droppableId, destination.index, exhibit)
+      );
       preview(destination.droppableId, exhibitId);
-      const newSequence = Array.from(timelines[destination.droppableId].sequence);
-      const newTimelineId = Object.values(timelines).reduce((timelineMax, timeline) => Math.max(
-        timelineMax,
-        timeline.sequence.reduce((seqMax, item) => Math.max(seqMax, item.timelineId), 0)
-      ), 0) + 1;
-      newSequence.splice(destination.index, 0,
-        Object.assign({}, exhibitsById[exhibitId], { timelineId: newTimelineId }));
-      setTimelines(Object.assign({}, timelines,
-        Object.fromEntries([[destination.droppableId, { sequence: newSequence }]])));
-
     } else if (source.droppableId === destination.droppableId) {
       // Reordering within a sequence
       const exhibitId = exhibitIdFromDraggableId(result.draggableId);
-      const newSequence = Array.from(timelines[destination.droppableId].sequence);
-      const movedItem = newSequence[source.index];
-      newSequence.splice(source.index, 1);
-      newSequence.splice(destination.index, 0, movedItem);
-      setTimelines(Object.assign({}, timelines,
-        Object.fromEntries([[destination.droppableId, { sequence: newSequence }]])));
+      handleTimelineUpdate(
+        timelineSeqMoveItem(timeline, destination.droppableId, source.index, destination.index)
+      );
       preview(destination.droppableId, exhibitId);
     } else {
       // Moving from one sequence to another
       const exhibitId = exhibitIdFromDraggableId(result.draggableId);
-      const newSource = Array.from(timelines[source.droppableId].sequence);
-      const newDestination = Array.from(timelines[destination.droppableId].sequence);
-      const movedItem = newSource[source.index];
-      newSource.splice(source.index, 1);
-      newDestination.splice(destination.index, 0, movedItem);
-      setTimelines(Object.assign({}, timelines,
-        Object.fromEntries([
-          [source.droppableId, { sequence: newSource }],
-          [destination.droppableId, { sequence: newDestination }],
-        ])));
+      handleTimelineUpdate(
+        timelineMoveItem(timeline,
+          source.droppableId, source.index,
+          destination.droppableId, destination.index)
+      );
       preview(destination.droppableId, exhibitId);
     }
-  });
+  }, [timeline, exhibits]);
 
   const handlePlay = useCallback(async (options) => {
     if (sequencer.isPlaying) {
       await sequencer.stop();
     } else {
-      buildPlaylist(timelines, Object.assign({}, options, {
+      buildPlaylist(timeline, Object.assign({}, options, {
         exhibitsApiRoot,
       })).then(async (playlist) => {
         await sequencer.start(playlist);
       });
     }
-  }, [timelines, exhibitsApiRoot]);
+  }, [timeline, exhibitsApiRoot]);
 
   return (
     <div className="timeline-editor">
@@ -136,22 +164,31 @@ export default function TimelineEditor(props) {
         <DragDropContext onDragEnd={onDragEnd}>
           <ExhibitLibrary exhibits={exhibits} />
           <div className="station-scripts">
-            { mockStations.map((station, i) => (
+            { stations.map((station, i) => (
               <StationTimeline
                 index={i}
                 key={station.id}
                 station={station}
-                sequence={timelines[station.id].sequence}
+                sequence={timelineSeq(timeline, station.id)}
               />
             ))}
           </div>
         </DragDropContext>
+        <TimelineControlBar
+          playing={playing}
+          onPlay={handlePlay}
+          timeline={timeline}
+          onTimelineUpdate={handleTimelineUpdate}
+          saving={saving}
+        />
       </Loader>
-      <DemoPlayer onPlay={handlePlay} playing={playing} />
     </div>
   );
 }
 
 TimelineEditor.propTypes = {
+  timelineId: PropTypes.string.isRequired,
   exhibitsApiRoot: PropTypes.string.isRequired,
+  stationsApiRoot: PropTypes.string.isRequired,
+  timelinesApiRoot: PropTypes.string.isRequired,
 };

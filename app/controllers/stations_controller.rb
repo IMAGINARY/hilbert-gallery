@@ -1,6 +1,6 @@
 class StationsController < ApplicationController
   def index
-    @stations = Station.all
+    @stations = Station.order('name').all
   end
 
   def new

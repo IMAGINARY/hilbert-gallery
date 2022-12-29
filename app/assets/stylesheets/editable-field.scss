@@ -1,0 +1,25 @@
+.editable-field {
+  width: 200px;
+
+  .editable-field-label {
+    display: inline-block;
+    vertical-align: bottom;
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 1rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .editable-field-input {
+    display: inline-block;
+    vertical-align: bottom;
+    width: 100%;
+    height: auto;
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: none;
+    margin: 0;
+  }
+}

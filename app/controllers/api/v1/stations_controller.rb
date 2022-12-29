@@ -3,7 +3,7 @@ module Api
     class StationsController < ActionController::API
       def index
         render json: {
-          stations: Station.all.map do |station|
+          stations: Station.order('name').all.map do |station|
             station_to_json(station)
           end
         }.to_json, status: :ok

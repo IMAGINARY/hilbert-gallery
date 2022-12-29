@@ -9,7 +9,6 @@ export default function ExhibitLibrary(props) {
   const [filter, setFilter] = useState({});
 
   const tags = useMemo(() => {
-    console.log("Calculating tags");
     return Object.keys(exhibits.reduce((tags, exhibit) => Object.assign(
       tags,
       Object.fromEntries(exhibit.tags.map(t => [t, true]))
