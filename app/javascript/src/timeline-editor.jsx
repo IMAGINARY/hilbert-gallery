@@ -8,7 +8,6 @@ import ExhibitLibrary from './exhibit-library';
 import StationTimeline from './station-timeline';
 import TimelineControlBar from './timeline-control-bar';
 import SequencerConn from './sequencer-conn';
-import buildPlaylist from './playlist-builder';
 import { exhibitIdFromDraggableId } from './aux/draggable-id';
 import {
   fetchExhibits, fetchExhibit, fetchStations, fetchTimeline,
@@ -150,13 +149,16 @@ export default function TimelineEditor(props) {
     if (sequencer.isPlaying) {
       await sequencer.stop();
     } else {
-      buildPlaylist(timeline, Object.assign({}, options, {
-        exhibitsApiRoot,
-      })).then(async (playlist) => {
-        await sequencer.start(playlist);
-      });
+      await throttledSaver.saveNow(timeline);
+      await sequencer.start(timelineId);
+      // buildPlaylist(timeline, Object.assign({}, options, {
+      //   exhibitsApiRoot,
+      // })).then(async (playlist) => {
+      //   console.log('Playlist: ', playlist);
+      //   await sequencer.start(playlist);
+      // });
     }
-  }, [timeline, exhibitsApiRoot]);
+  }, [timelineId, exhibitsApiRoot]);
 
   return (
     <div className="timeline-editor">

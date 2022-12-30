@@ -24,6 +24,26 @@ module Api
         content_not_found
       end
 
+      def playlist
+        @timeline = Timeline.find(params[:id])
+        if @timeline.script
+          script = JSON.parse(@timeline.script)
+          exhibits = Timeline.all_exhibits_h(script)
+
+          playlist = script['sequences'].transform_values do |stationSeq|
+            stationSeq['sequence'].map do |exhibit|
+              exhibit_as_playlist_item(exhibits[exhibit['id']])
+            end
+          end
+        else
+          playlist = {}
+        end
+
+        render json: playlist, status: :ok
+      rescue ActiveRecord::RecordNotFound
+        content_not_found
+      end
+
       def content_not_found
         render json: { errors: ['Timeline not found'] }, :status => 404
       end
@@ -32,6 +52,30 @@ module Api
 
       def timeline_params
         params.require(:timeline).permit(:id, :title, :script, :revision, :client_version)
+      end
+
+      def exhibit_as_playlist_item(exhibit)
+        {
+          action: 'show',
+          args: {
+            mimetype: exhibit.media_file.content_type,
+            url: url_for(exhibit.media_file),
+            fit: 'contain',
+            color: 'black',
+            transition: {
+              type: 'cross-fade',
+              options: {
+                duration: 1,
+                color: 'black',
+              },
+            },
+            animation: {
+              type: 'none',
+              options: {},
+            },
+            duration: exhibit.video? ? 20 : 10,
+          }
+        }
       end
     end
   end

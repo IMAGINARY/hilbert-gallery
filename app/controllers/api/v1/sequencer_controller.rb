@@ -6,7 +6,7 @@ module Api
       end
 
       def start
-        render json: sequencer.start(JSON.parse(request.body.read)), status: :ok
+        render json: sequencer.start(params[:timelineId]), status: :ok
       end
 
       def stop

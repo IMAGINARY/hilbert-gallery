@@ -21,13 +21,14 @@ Rails.application.routes.draw do
       resources :exhibits, only: [:index, :show]
 
       resources :timelines
+      get 'timelines/:id/playlist', to: 'timelines#playlist'
 
       patch 'display/:id/update', to: 'stations#display_update'
       resources :stations, only: [:index]
 
       get 'sequencer/status', to: 'sequencer#status'
       post 'sequencer/stop', to: 'sequencer#stop'
-      post 'sequencer/start', to: 'sequencer#start'
+      post 'sequencer/start/:timelineId', to: 'sequencer#start'
       post 'sequencer/display/:id/update', to: 'sequencer#display'
     end
   end

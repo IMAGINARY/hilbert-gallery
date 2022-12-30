@@ -51,8 +51,8 @@ export default class SequencerConn {
     return this.readResponse(await SequencerConn.post('/api/v1/sequencer/stop'));
   }
 
-  async start(sequence) {
-    return this.readResponse(await SequencerConn.post('/api/v1/sequencer/start', JSON.stringify(sequence)));
+  async start(timelineId) {
+    return this.readResponse(await SequencerConn.post(`/api/v1/sequencer/start/${timelineId}`));
   }
 
   async display(stationId, exhibit) {

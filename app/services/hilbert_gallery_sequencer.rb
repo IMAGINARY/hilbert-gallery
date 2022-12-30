@@ -8,8 +8,8 @@ class HilbertGallerySequencer
     get(URI.join(@server, '/status'))
   end
 
-  def start(sequence)
-    post(URI.join(@server, '/start'), sequence)
+  def start(timelineId)
+    post(URI.join(@server, "/start/#{timelineId}"))
   end
 
   def stop
