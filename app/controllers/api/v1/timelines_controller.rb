@@ -3,7 +3,13 @@ module Api
     class TimelinesController < ActionController::API
       def index
         @timelines = Timeline.all
-        render json: @timelines, status: :ok
+        # Render a JSON with the timelines ID and title
+        render json: (@timelines.map do |timeline|
+          {
+            id: timeline.id,
+            title: timeline.title,
+          }
+        end), status: :ok
       end
 
       def show
