@@ -145,18 +145,12 @@ export default function TimelineEditor(props) {
     }
   }, [timeline, exhibits]);
 
-  const handlePlay = useCallback(async (options) => {
+  const handlePlay = useCallback(async () => {
     if (sequencer.isPlaying) {
       await sequencer.stop();
     } else {
       await throttledSaver.saveNow(timeline);
       await sequencer.start(timelineId);
-      // buildPlaylist(timeline, Object.assign({}, options, {
-      //   exhibitsApiRoot,
-      // })).then(async (playlist) => {
-      //   console.log('Playlist: ', playlist);
-      //   await sequencer.start(playlist);
-      // });
     }
   }, [timelineId, exhibitsApiRoot]);
 

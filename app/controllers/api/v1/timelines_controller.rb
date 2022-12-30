@@ -32,7 +32,7 @@ module Api
 
           playlist = script['sequences'].transform_values do |stationSeq|
             stationSeq['sequence'].map do |exhibit|
-              exhibit_as_playlist_item(exhibits[exhibit['id']])
+              exhibit_as_playlist_item(exhibits[exhibit['id']], script['options'] || {})
             end
           end
         else
@@ -54,27 +54,70 @@ module Api
         params.require(:timeline).permit(:id, :title, :script, :revision, :client_version)
       end
 
-      def exhibit_as_playlist_item(exhibit)
+      def exhibit_as_playlist_item(exhibit, options = {})
+        duration = options['duration'] || 10
+
         {
           action: 'show',
           args: {
             mimetype: exhibit.media_file.content_type,
             url: url_for(exhibit.media_file),
             fit: 'contain',
-            color: 'black',
-            transition: {
+            color: playlist_item_color(options),
+            transition: playlist_item_transition(options),
+            animation: playlist_item_animation,
+            duration: duration,
+          }
+        }
+      end
+
+      def playlist_item_color(options = {})
+        if options['transition'] == 'fade-white'
+          'white'
+        else
+          'black'
+        end
+      end
+
+      def playlist_item_transition(options)
+        transition = options['transition'] || 'cross-fade'
+
+        case transition
+          when 'crossfade'
+            {
               type: 'cross-fade',
               options: {
                 duration: 1,
                 color: 'black',
               },
-            },
-            animation: {
+            }
+          when 'fade'
+            {
+              type: 'fade',
+              options: {
+                duration: 2,
+                color: 'black',
+              },
+            }
+          when 'fade-white'
+            {
+              type: 'fade',
+              options: {
+                duration: 2,
+                color: 'white',
+              },
+            }
+          else
+            {
               type: 'none',
-              options: {},
-            },
-            duration: exhibit.video? ? 20 : 10,
-          }
+            }
+        end
+      end
+
+      def playlist_item_animation
+        {
+          type: 'none',
+          options: {},
         }
       end
     end

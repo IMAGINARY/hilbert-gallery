@@ -29,7 +29,7 @@ class StationsController < ApplicationController
   end
 
   def display_all
-    @stations = Station.all
+    @stations = Station.order('name').all
   end
 
   def edit
