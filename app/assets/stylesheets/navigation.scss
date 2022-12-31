@@ -1,0 +1,27 @@
+.navbar-brand {
+  color: #fff;
+  background-color: black;
+  border-radius: 50%;
+  width: 2.5rem;
+  text-align: center;
+  height: 2.5rem;
+  font-weight: bold;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.navbar-nav {
+  li.nav-item {
+    margin-right: 0.5rem;
+    margin-left: 0.5rem;
+  }
+}
+
+.navbar-dark .navbar-nav .show > .nav-link, .navbar-dark .navbar-nav .active > .nav-link, .navbar-dark .navbar-nav .nav-link.show, .navbar-dark .navbar-nav .nav-link.active {
+  background-color: rgba(255, 255, 255, 0.15);
+  color: #fff;
+}

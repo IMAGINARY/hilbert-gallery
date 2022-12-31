@@ -1,14 +1,15 @@
-<div class="container">
+<div class="container-fluid">
   <div class="row">
     <div class="col">
       <h1>Stations</h1>
-      <%= link_to 'Add a new station', new_station_path, class: 'btn btn-primary mb-3' %>
+      <%= link_to 'Add a new station', new_station_path, class: 'btn btn-sm btn-outline-light btn-add mb-3' %>
       <div class="row">
         <% @stations.each do |station| %>
           <div class="col-sm-4 col-md-3 col-lg-2 mb-4">
-            <%= link_to(station) do
-              content_tag(:h3, station.name)
-            end %>
+            <%= link_to station, class: 'station-preview' do %>
+              <%= content_tag(:h3, station.name) %>
+              <%= content_tag(:div, "#{station.width}x#{station.height}", class: 'dimensions') %>
+            <% end %>
           </div>
         <% end %>
       </div>

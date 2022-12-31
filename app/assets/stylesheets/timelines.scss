@@ -22,10 +22,10 @@ body.timelines-view {
     background-color: $color-bar;
 
     .exhibit-library-list {
-      padding: 15px;
+      padding: 3px 15px 22px;
       font-size: 0;
       overflow: auto;
-      background-color: $color-panel;
+      background-color: $color-bar;
     }
   }
 
@@ -48,7 +48,7 @@ body.timelines-view {
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
-  border: 1px solid $color-hairline;
+  border: 1px solid $color-panel;
 }
 
 .exhibit-library {

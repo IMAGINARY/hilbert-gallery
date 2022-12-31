@@ -1,0 +1,18 @@
+@import 'colors';
+
+.station-preview {
+  display: block;
+  padding: 0.5rem;
+  background-color: $color-panel;
+  color: black;
+
+  .dimensions {
+    font-size: 0.8rem;
+  }
+
+  &:hover {
+    color: black;
+    background-color: darken($color-panel, 5%);
+    text-decoration: none;
+  }
+}

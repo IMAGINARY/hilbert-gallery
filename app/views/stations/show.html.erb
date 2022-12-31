@@ -1,22 +1,19 @@
-<div class="container">
+<div class="container-fluid">
   <div class="row">
     <div class="col">
       <div class="detailview detailview-exhibits">
         <h1>Station <%= @station.name %></h1>
-        <li class="detailview-field">
-          <span class="name">Width: </span>
-          <span class="value"><%= @station.width %></span>
-        </li>
-        <li class="detailview-field">
-          <span class="name">Height: </span>
-          <span class="value"><%= @station.height %></span>
-        </li>
+        <div class="details mt-4 mb-5">
+          <span class="name"><strong>Dimensions: </strong></span>
+          <span class="value"><%= "#{@station.width}x#{@station.height}" %></span>
+        </div>
         <div class="mt-4 mb-5">
-          <%= link_to 'Edit', edit_station_path(@station), class: 'btn btn-primary' %>
+          <%= link_to 'Edit', edit_station_path(@station), class: 'btn btn-primary mr-2' %>
           <%= link_to 'Delete', station_path(@station),
                       method: :delete,
-                      data: { confirm: "Are you sure?" } %>
-          <%= link_to 'Back', stations_path, class: 'btn btn-outline-secondary' %>
+                      data: { confirm: "Are you sure?" },
+                      class: 'btn btn-outline-danger text-light mr-2' %>
+          <%= link_to 'Back', stations_path, class: 'btn btn-outline-link text-light' %>
         </div>
       </div>
     </div>

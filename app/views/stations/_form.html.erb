@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row mt-4">
   <div class="col-md-8">
     <%= form_with model: @station, local: true do |form| %>
       <% if @station.errors.any? %>
@@ -33,6 +33,7 @@
       </div>
 
       <%= form.submit nil, { class: 'btn btn-primary'} %>
+      <%= link_to 'Back', stations_path, { class: 'btn btn-link text-light' } %>
     <% end %>
   </div>
 </div>

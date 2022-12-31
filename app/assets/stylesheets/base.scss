@@ -4,3 +4,29 @@ body {
   background-color: $color-bg;
   color: #fff;
 }
+
+h1 {
+  font-size: 2rem;
+  margin-top: 0.5em;
+  margin-bottom: 0.1em;
+}
+
+.btn-add {
+  &:before {
+    content: "+";
+    display: inline-block;
+    margin-right: 0.5em;
+    font-size: 1.5em;
+    font-weight: bold;
+    line-height: 1em;
+    color: white;
+    vertical-align: text-bottom;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  }
+
+  &:hover {
+    &:before {
+      color: black;
+    }
+  }
+}
