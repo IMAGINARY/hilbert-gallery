@@ -47,7 +47,7 @@ export default function TimelineControlBar(props) {
     onTimelineUpdate(newTimeline);
   }, [timeline]);
 
-  const options = (timeline && timeline.script.options) || {};
+  const options = (timeline && timeline.script && timeline.script.options) || {};
 
   return (
     <div className="timeline-control-bar">
