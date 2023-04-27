@@ -14,7 +14,9 @@
   </head>
 
   <body class="<%= controller_name %> <%= "#{controller_name}-#{action_name}" %>">
-    <%= render 'navbar' %>
+    <% unless defined?(@no_navbar) && @no_navbar %>
+      <%= render 'navbar' %>
+    <% end %>
     <div class="container-fluid">
       <div class="row">
         <div class="col">

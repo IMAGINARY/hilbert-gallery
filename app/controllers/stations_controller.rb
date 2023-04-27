@@ -25,6 +25,7 @@ class StationsController < ApplicationController
   end
 
   def display
+    @no_navbar = true
     @station = Station.find(params[:id])
   end
 
