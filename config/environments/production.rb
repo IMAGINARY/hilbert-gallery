@@ -119,5 +119,5 @@ Rails.application.configure do
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
 
   # Base URL of the hilbert-gallery-sequencer server
-  config.x.sequencer_api_url = "http://le-server.local:4123"
+  config.x.sequencer_api_url = "http://localhost:4123"
 end
