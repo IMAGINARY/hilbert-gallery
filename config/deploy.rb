@@ -1,7 +1,7 @@
 require 'mina/rails'
 require 'mina/git'
 require 'mina/rvm'
-require 'mina/rsync'
+# require 'mina/rsync'
 
 # Basic settings:
 #   domain       - The hostname to SSH to.
@@ -13,11 +13,11 @@ set :application_name, 'lively-exhibitions'
 set :domain, 'le-server.local'
 set :user, 'imaginary'
 set :deploy_to, "/home/#{fetch(:user)}/app"
-# set :repository, 'git@github.com:IMAGINARY/hilbert-gallery.git'
-set :repository, '.'
+set :repository, 'git@github.com:IMAGINARY/hilbert-gallery.git'
+# set :repository, '.'
 set :branch, 'main'
 set :rvm_use_path, '/home/imaginary/.rvm/scripts/rvm'
-set :rsync_options, %w[--recursive --delete --delete-excluded --exclude .git*]
+# set :rsync_options, %w[--recursive --delete --delete-excluded --exclude .git*]
 set :force_asset_precompile, true
 
 # Optional settings:
@@ -60,7 +60,7 @@ task :setup do
     path_secrets_yml = "config/secrets.yml"
     secrets_yml = %[production:\n  secret_key_base:\n    #{`bundle exec rake secret`.strip}]
     command %[test -e #{path_secrets_yml} || echo "#{secrets_yml}" > #{path_secrets_yml}]
-    
+
     # Remove others-permission for config directory
     command %[chmod -R o-rwx config]
   end
@@ -74,8 +74,8 @@ task :deploy do
   deploy do
     # Put things that will set up an empty directory into a fully set-up
     # instance of your project.
-    # invoke :'git:clone'
-    invoke :'rsync:deploy'
+    invoke :'git:clone'
+    # invoke :'rsync:deploy'
     invoke :'deploy:link_shared_paths'
     invoke :'bundle:install'
     invoke :'rails:db_migrate'
