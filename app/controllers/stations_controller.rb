@@ -47,6 +47,13 @@ class StationsController < ApplicationController
     end
   end
 
+  def destroy
+    @station = Station.find(params[:id])
+    @station.destroy
+
+    redirect_to stations_path
+  end
+
   def station_params
     params.require(:station).permit(:name, :width, :height)
   end
