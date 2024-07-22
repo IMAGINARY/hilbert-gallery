@@ -16,6 +16,12 @@ bin/rails server -b 0.0.0.0 -p 3000 -e development
 
 The server will be available at `http://localhost:3000`.
 
+## Database backup
+
+```bash
+pg_dump -U ericlondaits --dbname="hilbert_gallery_development" --file="hilbert-gallery-development-db-$(date +%Y-%m-%d)-dump.sql"
+```
+
 ## Tests
 
 Tests can be run with
